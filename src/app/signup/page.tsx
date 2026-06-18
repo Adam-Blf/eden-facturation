@@ -33,7 +33,7 @@ function BrandPanel() {
       {/* Top: wordmark */}
       <div className="flex flex-col gap-2">
         <Link href="/" className="text-white">
-          <BrandMark size="lg" className="text-white" />
+          <BrandMark className="text-white" />
         </Link>
       </div>
 
