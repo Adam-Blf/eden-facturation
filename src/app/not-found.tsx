@@ -9,7 +9,7 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-void px-6 text-ink">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 py-16 bg-[#010000] text-[#f5f5f5]">
       {/* grille brass */}
       <div
         aria-hidden
@@ -49,7 +49,7 @@ export default function NotFound() {
               width={150}
               height={150}
               priority
-              className="h-28 w-auto drop-shadow-[0_10px_45px_rgba(216,177,114,0.28)] md:h-32"
+              className="h-24 w-auto drop-shadow-[0_10px_45px_rgba(216,177,114,0.28)] md:h-28"
             />
           </motion.div>
         </motion.div>
@@ -59,13 +59,13 @@ export default function NotFound() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.15, ease }}
-          className="mt-4 font-display text-[6rem] font-black leading-none tracking-tighter text-brass md:text-[11rem]"
+          className="mt-4 font-display text-[6rem] font-black leading-none tracking-tighter text-[#d8b172] md:text-[10rem]"
         >
           404
         </motion.h1>
 
         <motion.h2
-          className="mt-4 font-display text-2xl font-bold text-ink md:text-3xl"
+          className="mt-4 font-display text-2xl font-bold text-[#f5f5f5] md:text-3xl"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, ease }}
@@ -74,7 +74,7 @@ export default function NotFound() {
         </motion.h2>
 
         <motion.p
-          className="mt-4 max-w-md leading-relaxed text-mist"
+          className="mt-4 max-w-md leading-relaxed text-[#9a9488]"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.42, ease }}
@@ -89,28 +89,31 @@ export default function NotFound() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, ease }}
         >
-          <Link href="/" className="btn-primary group">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 rounded-full bg-[#d8b172] px-6 py-3 text-sm font-bold text-[#010000] transition-colors hover:bg-[#c39a52]"
+          >
             <Home size={18} />
             Retour à l&apos;accueil
           </Link>
           <Link
             href="/app"
-            className="inline-flex items-center gap-2 rounded-full border border-hair px-6 py-3 text-sm font-bold text-ink transition-colors hover:border-brass hover:text-brass"
+            className="inline-flex items-center gap-2 rounded-full border border-[#2a2622] px-6 py-3 text-sm font-bold text-[#f5f5f5] transition-colors hover:border-[#d8b172] hover:text-[#d8b172]"
           >
             Mon espace
-            <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+            <ArrowUpRight size={16} />
           </Link>
         </motion.div>
-      </div>
 
-      <motion.footer
-        className="absolute bottom-8 text-xs text-mist"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-      >
-        404 Monkey · ta facturation sans bug
-      </motion.footer>
+        <motion.p
+          className="mt-16 text-xs text-[#6f6a60]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+        >
+          404 Monkey · ta facturation sans bug
+        </motion.p>
+      </div>
     </main>
   );
 }
