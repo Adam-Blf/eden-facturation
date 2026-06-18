@@ -1,45 +1,12 @@
 @import "tailwindcss";
 
-/* ===== EDEN · design tokens ===== */
-/* 404 Monkey · street / dev-culture palette */
-:root {
-  --eden-forest: #0b0b0c; /* void (noir logo) */
-  --eden-moss: #1c1c1e; /* ash (surfaces sombres, hover) */
-  --eden-gold: #c9a24a; /* brass (le 404 doré) */
-  --eden-ink: #141414;
-  --eden-mist: #8a877e; /* smoke (gris chaud) */
-  --eden-hair: #e6e1d5;
-  --eden-paper: #ffffff;
-  --eden-bone: #f4efe3; /* crème brush */
-  --eden-tan: #d8c39a; /* tan (lettrage MONKEY) */
-
-  --background: var(--eden-bone);
-  --foreground: var(--eden-ink);
-}
-
-.dark {
-  --background: #0b0b0c;
-  --foreground: #f4efe3;
-  --eden-hair: #2a2a2c;
-  --eden-mist: #8a877e;
-  --eden-paper: #161617;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-forest: var(--eden-forest);
-  --color-moss: var(--eden-moss);
-  --color-gold: var(--eden-gold);
-  --color-ink: var(--eden-ink);
-  --color-mist: var(--eden-mist);
-  --color-hair: var(--eden-hair);
-  --color-paper: var(--eden-paper);
-  --color-bone: var(--eden-bone);
-  --color-tan: var(--eden-tan);
-  --color-void: var(--eden-forest);
-  --color-brass: var(--eden-gold);
+  --color-void: var(--bg);
+  --color-paper: var(--surface);
+  --color-ink: var(--ink);
+  --color-brass: var(--primary);
+  --color-tan: var(--accent);
+  --color-mist: var(--muted);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -47,30 +14,26 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-.font-display {
+h1, h2, h3, h4, h5, h6, .font-display {
   font-family: var(--font-display), system-ui, sans-serif;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
-.eyebrow {
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-/* signature 404 Monkey · code-badge (langage HTTP) */
 .code-badge {
   font-family: var(--font-mono), monospace;
-  letter-spacing: 0.04em;
-  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  opacity: 0.8;
 }
 
-/* brush underline (clin d'oeil au lettrage du logo) */
 .brush-underline {
   position: relative;
   display: inline-block;
@@ -81,16 +44,16 @@ body {
   left: -2%;
   right: -2%;
   bottom: -0.12em;
-  height: 0.18em;
-  background: var(--eden-gold);
-  border-radius: 1px;
-  transform: skewX(-12deg);
+  height: 0.2em;
+  background: var(--primary);
   opacity: 0.9;
+  transform: skewX(-15deg);
+  z-index: -1;
 }
 
-/* impeccable: focus + reduced motion */
+/* focus + reduced motion */
 :focus-visible {
-  outline: 2px solid var(--eden-gold);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 @media (prefers-reduced-motion: reduce) {
