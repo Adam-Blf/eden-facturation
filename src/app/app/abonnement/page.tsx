@@ -91,9 +91,18 @@ export default async function AbonnementPage() {
             {plan.pro ? (
               <PromoCheckout stripeEnabled={stripeEnabled} />
             ) : (
-              <button disabled className="w-full rounded-full border border-hair py-2 text-sm font-bold text-mist">
-                Plan actuel
-              </button>
+              <div className="flex flex-col gap-2">
+                <button disabled className="w-full rounded-full border border-hair py-2 text-sm font-bold text-mist">
+                  Plan actuel
+                </button>
+                {currentPlan !== "free" && (
+                  <form action="/api/stripe/portal" method="POST">
+                    <button type="submit" className="w-full text-center text-xs text-brass underline underline-offset-4 hover:text-tan transition-colors">
+                      Gérer mon abonnement
+                    </button>
+                  </form>
+                )}
+              </div>
             )}
           </div>
         ))}
