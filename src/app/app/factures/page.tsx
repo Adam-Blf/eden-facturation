@@ -23,50 +23,50 @@ export default async function FacturesPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
-      <div className="mb-8 flex items-end justify-between">
+      <div className="mb-8 flex items-end justify-between border-b border-paper/10 pb-4">
         <div>
-          <p className="eyebrow text-xs text-moss">Factures</p>
-          <h1 className="font-display text-4xl font-bold text-forest">Tes factures</h1>
+          <p className="code-badge text-[10px] mb-2">ARCHIVES_FACTURES</p>
+          <h1 className="font-display text-4xl font-bold text-ink">Tes factures</h1>
         </div>
         <Link
           href="/app/factures/nouvelle"
-          className="inline-flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-sm font-bold text-white transition hover:bg-moss"
+          className="btn-primary px-5 py-2.5 text-sm"
         >
           <Plus size={16} /> Nouvelle facture
         </Link>
       </div>
 
       {invoices.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-hair bg-paper p-12 text-center">
-          <FileText size={32} className="mx-auto mb-3 text-mist" />
-          <p className="text-mist">Aucune facture pour le moment.</p>
-          <Link href="/app/factures/nouvelle" className="mt-3 inline-block font-bold text-forest underline">
+        <div className="rounded-md border border-dashed border-paper/20 bg-void p-12 text-center flex flex-col items-center">
+          <FileText size={32} className="mb-4 text-mist opacity-50" />
+          <p className="text-mist text-sm font-medium mb-4">Aucune facture pour le moment.</p>
+          <Link href="/app/factures/nouvelle" className="btn-secondary text-xs py-2 px-4">
             Créer ma première facture
           </Link>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-2xl border border-hair bg-paper">
+        <div className="overflow-hidden rounded-md border border-paper/10 bg-void">
           <table className="w-full text-sm">
-            <thead className="border-b border-hair text-left text-[11px] uppercase tracking-wider text-mist">
+            <thead className="border-b border-paper/10 bg-paper/5 text-left text-[10px] font-bold uppercase tracking-widest text-mist">
               <tr>
-                <th className="px-5 py-3">Numéro</th>
-                <th className="px-5 py-3">Client</th>
-                <th className="px-5 py-3">Date</th>
-                <th className="px-5 py-3 text-right">Total</th>
-                <th className="px-5 py-3">Statut</th>
+                <th className="px-5 py-4">Numéro</th>
+                <th className="px-5 py-4">Client</th>
+                <th className="px-5 py-4">Date</th>
+                <th className="px-5 py-4 text-right">Total</th>
+                <th className="px-5 py-4 text-center">Statut</th>
               </tr>
             </thead>
             <tbody>
               {invoices.map((inv) => (
-                <tr key={inv.id} className="border-b border-hair last:border-0">
-                  <td className="px-5 py-3 font-mono text-ink">{inv.numero}</td>
-                  <td className="px-5 py-3 text-ink">{inv.snapshot?.invoice?.client?.nom ?? "—"}</td>
-                  <td className="px-5 py-3 text-mist">{inv.date_emission}</td>
-                  <td className="px-5 py-3 text-right font-mono text-ink">{formatEUR(Number(inv.total_ht))}</td>
-                  <td className="px-5 py-3">
+                <tr key={inv.id} className="border-b border-paper/10 last:border-0 hover:bg-paper/5 transition-colors">
+                  <td className="px-5 py-4 font-mono text-xs text-brass">{inv.numero}</td>
+                  <td className="px-5 py-4 font-medium text-ink">{inv.snapshot?.invoice?.client?.nom ?? "—"}</td>
+                  <td className="px-5 py-4 text-mist">{inv.date_emission}</td>
+                  <td className="px-5 py-4 text-right font-mono text-ink font-bold">{formatEUR(Number(inv.total_ht))}</td>
+                  <td className="px-5 py-4 text-center">
                     <span
-                      className="rounded-full px-2.5 py-1 text-[11px] font-bold text-white"
-                      style={{ backgroundColor: INVOICE_STATUS_COLORS[inv.status] ?? "#8a968f" }}
+                      className="inline-block rounded-md px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-void"
+                      style={{ backgroundColor: INVOICE_STATUS_COLORS[inv.status] ?? "var(--primary)" }}
                     >
                       {INVOICE_STATUS_LABELS[inv.status] ?? inv.status}
                     </span>
