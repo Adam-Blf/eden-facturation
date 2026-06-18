@@ -1,23 +1,24 @@
-/**
- * Logotype 404 Monkey (fallback typographique).
- * "404" en brass, "MONKEY" hérite de la couleur du parent (currentColor),
- * pour fonctionner sur fond clair comme sombre.
- */
-export function BrandMark({
-  className = "",
-  size = "md",
-}: {
-  className?: string;
-  size?: "sm" | "md" | "lg";
-}) {
-  const scale =
-    size === "lg" ? "text-3xl" : size === "sm" ? "text-base" : "text-xl";
+import Image from "next/image";
+
+export function BrandMark({ className }: { className?: string }) {
   return (
-    <span
-      className={`font-display font-extrabold leading-none tracking-tight ${scale} ${className}`}
-    >
-      <span className="text-brass">404</span>
-      <span className="ml-1.5">MONKEY</span>
-    </span>
+    <div className={`flex items-center gap-2 ${className}`}>
+      <Image 
+        src="/logo.png" 
+        alt="404 Monkey" 
+        width={120} 
+        height={120} 
+        className="h-12 w-auto object-contain"
+        priority
+      />
+      <div className="flex flex-col">
+        <span className="font-display text-xl font-black leading-none tracking-tighter text-brass">
+          404 MONKEY
+        </span>
+        <span className="code-badge text-[8px] opacity-60">
+          billing_engine_v1
+        </span>
+      </div>
+    </div>
   );
 }
