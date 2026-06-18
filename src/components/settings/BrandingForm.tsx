@@ -12,7 +12,7 @@ import { DEFAULT_INVOICE, type BusinessSettings } from "@/lib/types";
 const PdfPreview = dynamic(() => import("@/components/PdfPreview"), {
   ssr: false,
   loading: () => (
-    <div className="flex h-full items-center justify-center bg-[#33403a] text-sm text-white/60">
+    <div className="flex h-full items-center justify-center bg-void text-sm text-mist">
       Aperçu…
     </div>
   ),
@@ -23,21 +23,24 @@ function Field({
   value,
   onChange,
   full,
+  placeholder,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   full?: boolean;
+  placeholder?: string;
 }) {
   return (
     <label className={`block ${full ? "col-span-2" : ""}`}>
-      <span className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-mist">
+      <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-mist">
         {label}
       </span>
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-hair bg-paper px-3 py-2 text-sm text-ink outline-none transition focus:border-forest"
+        placeholder={placeholder}
+        className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass"
       />
     </label>
   );
@@ -54,10 +57,10 @@ function ColorField({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-mist">
+      <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-mist">
         {label}
       </span>
-      <div className="flex items-center gap-2 rounded-lg border border-hair bg-paper px-2 py-1.5">
+      <div className="flex items-center gap-2 rounded-md border border-paper/10 bg-void px-2 py-1.5 focus-within:border-brass">
         <input
           type="color"
           value={value}
@@ -116,7 +119,7 @@ export default function BrandingForm({
       const res = await saveSettings(s);
       if (res.error) toast.error(res.error);
       else {
-        toast.success("Charte enregistrée.");
+        toast.success("Infos enregistrées.");
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       }
@@ -128,18 +131,20 @@ export default function BrandingForm({
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-h-[calc(100vh)] overflow-y-auto px-6 py-8"
+        className="max-h-screen overflow-y-auto px-6 py-8 pb-32"
       >
-        <p className="eyebrow text-xs text-moss">Branding</p>
-        <h1 className="mb-6 font-display text-3xl font-bold text-forest">
-          Charte graphique & infos
+        <p className="code-badge mb-2 text-[10px]">PARAMS_ENTREPRISE</p>
+        <h1 className="mb-8 font-display text-3xl font-bold text-ink">
+          Informations & Identité
         </h1>
 
         {/* LOGO */}
         <section className="mb-8">
-          <h2 className="mb-3 text-sm font-bold text-ink">Logo</h2>
+          <div className="mb-4 flex items-center justify-between border-b border-paper/10 pb-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-brass">Logo</h2>
+          </div>
           <div className="flex items-center gap-4">
-            <div className="flex h-20 w-32 items-center justify-center overflow-hidden rounded-lg border border-hair bg-paper">
+            <div className="flex h-20 w-32 items-center justify-center overflow-hidden rounded-md border border-paper/10 bg-paper/5">
               {s.logoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={s.logoUrl} alt="logo" className="max-h-full max-w-full object-contain" />
@@ -151,7 +156,7 @@ export default function BrandingForm({
               <button
                 onClick={() => fileRef.current?.click()}
                 disabled={uploading}
-                className="inline-flex items-center gap-2 rounded-full bg-forest px-4 py-2 text-xs font-bold text-white transition hover:bg-moss disabled:opacity-60"
+                className="inline-flex items-center gap-2 rounded-md bg-paper/10 px-4 py-2 text-xs font-bold text-ink transition hover:bg-paper/20 disabled:opacity-60"
               >
                 {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
                 Importer
@@ -159,7 +164,7 @@ export default function BrandingForm({
               {s.logoUrl && (
                 <button
                   onClick={() => set("logoUrl", null)}
-                  className="inline-flex items-center gap-1 text-xs text-mist transition hover:text-[#b3261e]"
+                  className="inline-flex items-center gap-1 text-xs text-mist transition hover:text-[#b3261e]"    
                 >
                   <Trash2 size={13} /> Retirer
                 </button>
@@ -177,9 +182,11 @@ export default function BrandingForm({
 
         {/* COULEURS */}
         <section className="mb-8">
-          <h2 className="mb-3 text-sm font-bold text-ink">Couleurs</h2>
-          <div className="grid grid-cols-3 gap-3">
-            <ColorField label="Primaire" value={s.colorPrimary} onChange={(v) => set("colorPrimary", v)} />
+          <div className="mb-4 flex items-center justify-between border-b border-paper/10 pb-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-brass">Couleurs de la facture</h2>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <ColorField label="Primaire" value={s.colorPrimary} onChange={(v) => set("colorPrimary", v)} />       
             <ColorField label="Accent" value={s.colorAccent} onChange={(v) => set("colorAccent", v)} />
             <ColorField label="Texte" value={s.colorInk} onChange={(v) => set("colorInk", v)} />
           </div>
@@ -187,39 +194,43 @@ export default function BrandingForm({
 
         {/* IDENTITE */}
         <section className="mb-8">
-          <h2 className="mb-3 text-sm font-bold text-ink">Identité émetteur</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Marque" value={s.marque} onChange={(v) => set("marque", v)} />
-            <Field label="Nom" value={s.nom} onChange={(v) => set("nom", v)} />
-            <Field label="Tagline" value={s.tagline} onChange={(v) => set("tagline", v)} full />
-            <Field label="Spine (tranche)" value={s.spine} onChange={(v) => set("spine", v)} />
-            <Field label="Forme juridique" value={s.forme} onChange={(v) => set("forme", v)} />
-            <Field label="Adresse" value={s.adresse1} onChange={(v) => set("adresse1", v)} />
-            <Field label="Code postal · ville" value={s.adresse2} onChange={(v) => set("adresse2", v)} />
+          <div className="mb-4 flex items-center justify-between border-b border-paper/10 pb-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-brass">Mon Entreprise</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Nom Commercial / Marque" placeholder="Ex: Studio 404" value={s.marque} onChange={(v) => set("marque", v)} />
+            <Field label="Prénom Nom" placeholder="Ex: Adam Beloucif" value={s.nom} onChange={(v) => set("nom", v)} />
+            <Field label="Tagline (Slogan)" value={s.tagline} onChange={(v) => set("tagline", v)} full />
+            <Field label="Texte latéral (Spine)" value={s.spine} onChange={(v) => set("spine", v)} />
+            <Field label="Forme juridique" placeholder="EI, EURL, SAS..." value={s.forme} onChange={(v) => set("forme", v)} />
+            <Field label="Adresse postale" value={s.adresse1} onChange={(v) => set("adresse1", v)} />
+            <Field label="Code postal · ville" value={s.adresse2} onChange={(v) => set("adresse2", v)} />        
             <Field label="Téléphone" value={s.tel} onChange={(v) => set("tel", v)} />
-            <Field label="Email" value={s.email} onChange={(v) => set("email", v)} />
-            <Field label="SIREN" value={s.siren} onChange={(v) => set("siren", v)} />
+            <Field label="Email professionnel" value={s.email} onChange={(v) => set("email", v)} />
+            <Field label="SIREN / SIRET" value={s.siren} onChange={(v) => set("siren", v)} />
             <Field label="Mention RCS" value={s.rcs} onChange={(v) => set("rcs", v)} />
             <Field label="IBAN" value={s.iban} onChange={(v) => set("iban", v)} />
             <Field label="BIC" value={s.bic} onChange={(v) => set("bic", v)} />
-            <Field label="Médiateur conso" value={s.mediateur} onChange={(v) => set("mediateur", v)} full />
+            <Field label="Médiateur de la consommation (obligatoire B2C)" value={s.mediateur} onChange={(v) => set("mediateur", v)} full />     
           </div>
         </section>
 
         {/* COMPTA */}
         <section className="mb-8">
-          <h2 className="mb-3 text-sm font-bold text-ink">Régime social</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="mb-4 flex items-center justify-between border-b border-paper/10 pb-2">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-brass">Régime Social</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
             <label className="block">
-              <span className="mb-1 block text-[11px] font-bold uppercase tracking-wider text-mist">
-                Taux cotisations URSSAF
+              <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-mist">
+                Taux cotisations URSSAF (%)
               </span>
               <input
                 type="number"
                 step="0.001"
                 value={s.cotisationRate}
                 onChange={(e) => set("cotisationRate", parseFloat(e.target.value) || 0)}
-                className="w-full rounded-lg border border-hair bg-paper px-3 py-2 text-sm text-ink outline-none focus:border-forest"
+                className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none focus:border-brass"
               />
             </label>
             <label className="col-span-2 flex items-center gap-2 text-sm text-ink">
@@ -227,27 +238,27 @@ export default function BrandingForm({
                 type="checkbox"
                 checked={s.versementLiberatoire}
                 onChange={(e) => set("versementLiberatoire", e.target.checked)}
+                className="accent-brass"
               />
               Versement fiscal libératoire activé
             </label>
           </div>
         </section>
 
-        <button
-          onClick={save}
-          disabled={pending}
-          className="sticky bottom-4 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-bold text-forest shadow-lg transition hover:bg-forest hover:text-white disabled:opacity-60"
-        >
-          {pending ? <Loader2 size={16} className="animate-spin" /> : saved ? <Check size={16} /> : <Save size={16} />}
-          {saved ? "Enregistré" : "Enregistrer la charte"}
-        </button>
+        <div className="mt-8 flex justify-end border-t border-paper/10 pt-4">
+          <button
+            onClick={save}
+            disabled={pending}
+            className="btn-primary w-full md:w-auto"
+          >
+            {pending ? <Loader2 size={16} className="animate-spin" /> : saved ? <Check size={16} /> : <Save size={16} />}
+            {saved ? "Enregistré" : "Sauvegarder les informations"}
+          </button>
+        </div>
       </motion.div>
 
-      <div className="sticky top-0 hidden h-screen flex-col border-l border-hair lg:flex">
-        <div className="border-b border-hair bg-paper px-4 py-3">
-          <span className="eyebrow text-xs text-moss">Aperçu dans ta DA</span>
-        </div>
-        <div className="flex-1">
+      <div className="sticky top-0 hidden h-screen flex-col border-l border-paper/10 lg:flex">
+        <div className="flex-1 bg-white/5">
           <PdfPreview data={{ settings: s, invoice: DEFAULT_INVOICE }} />
         </div>
       </div>

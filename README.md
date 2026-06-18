@@ -39,6 +39,19 @@ Next.js 16 (App Router, Turbopack) · TypeScript · Tailwind CSS v4 ·
 framer-motion · `@react-pdf/renderer` · Supabase (Postgres + Auth + RLS) ·
 Stripe · lucide-react.
 
+## 🏗️ Architecture
+
+```mermaid
+graph TD;
+  User((Utilisateur)) -->|Web / Mobile| Vercel[Vercel Frontend - Next.js]
+  Vercel -->|Auth & Database| Supabase[Supabase API]
+  Supabase -->|Triggers & DB| PostgreSQL[(PostgreSQL)]
+  Supabase -->|Serverless Functions| Deno[Deno Edge Functions]
+  Deno -->|Envoi d'e-mails| Resend[Resend API]
+  Vercel -->|Paiements & Abonnements| Stripe[Stripe API]
+  Vercel -->|Domaine personnalisé| OVH[OVH DNS]
+```
+
 ## 🚀 Démarrage
 
 ```bash
