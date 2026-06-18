@@ -23,7 +23,6 @@ export default async function AppLayout({
         <div>
           <Link href="/app" className="block mb-10">
             <BrandMark className="text-brass h-8 w-auto" />
-            <p className="code-badge mt-2 text-[10px] opacity-60">system.v1.0</p>
           </Link>
           
           <nav className="space-y-1">

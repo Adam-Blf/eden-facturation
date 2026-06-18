@@ -35,7 +35,6 @@ function BrandPanel() {
         <Link href="/" className="text-white">
           <BrandMark size="lg" className="text-white" />
         </Link>
-        <p className="code-badge text-[11px] text-brass">// facturation sans bug</p>
       </div>
 
       {/* Center: headline */}

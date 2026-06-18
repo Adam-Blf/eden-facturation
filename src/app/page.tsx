@@ -19,11 +19,9 @@ export default function Home() {
 
       <header className="z-10 flex items-center justify-between px-8 py-6">
         <BrandMark className="text-bone" />
-        <span className="code-badge text-[11px] text-mist hidden md:inline-block">GET /facturation → 200 OK</span>
       </header>
 
       <section className="z-10 flex flex-1 flex-col justify-center px-8 pb-20 md:px-20">
-        <p className="code-badge mb-6 text-xs text-brass">// la facturation sans bug</p>
         <h1 className="max-w-4xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight md:text-8xl">
           Tes factures
           <br />
@@ -53,18 +51,17 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* signature : le langage HTTP comme statuts de facture */}
+        {/* signature : les statuts de facture */}
         <div className="mt-14 flex flex-wrap items-center gap-3">
-          <span className="code-badge text-[11px] text-mist">status:</span>
           {STATUS_CHIPS.map((s) => (
             <span
               key={s.code}
-              className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-white/5 px-3 py-1.5"
+              className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-white/5 px-4 py-2"
             >
-              <span className="code-badge text-sm font-bold" style={{ color: s.color }}>
+              <span className="font-mono text-sm font-bold" style={{ color: s.color }}>
                 {s.code}
               </span>
-              <span className="text-sm text-bone/70">{s.label}</span>
+              <span className="text-sm font-medium text-bone/70">{s.label}</span>
             </span>
           ))}
         </div>
