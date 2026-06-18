@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* ===== EDEN · design tokens ===== */
+:root {
+  --eden-forest: #14342b;
+  --eden-moss: #3e5c4b;
+  --eden-gold: #c8a24b;
+  --eden-ink: #1a1f1c;
+  --eden-mist: #8a968f;
+  --eden-hair: #e0e4e0;
+  --eden-paper: #ffffff;
+  --eden-bone: #f7f7f4;
+
+  --background: var(--eden-bone);
+  --foreground: var(--eden-ink);
+}
+
+.dark {
+  --background: #0c1411;
+  --foreground: #eaf0ec;
+  --eden-hair: #233029;
+  --eden-mist: #7e8a83;
+  --eden-paper: #11201a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-forest: var(--eden-forest);
+  --color-moss: var(--eden-moss);
+  --color-gold: var(--eden-gold);
+  --color-ink: var(--eden-ink);
+  --color-mist: var(--eden-mist);
+  --color-hair: var(--eden-hair);
+  --color-paper: var(--eden-paper);
+  --color-bone: var(--eden-bone);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.eyebrow {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
