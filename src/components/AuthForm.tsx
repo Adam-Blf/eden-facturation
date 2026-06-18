@@ -33,7 +33,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: location.origin + "/auth/callback",
+          redirectTo: (process.env.NEXT_PUBLIC_APP_URL || location.origin) + "/auth/callback",
         },
       });
       if (error) throw error;
@@ -63,7 +63,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           email,
           password,
           options: {
-            emailRedirectTo: location.origin + "/auth/callback",
+            emailRedirectTo: (process.env.NEXT_PUBLIC_APP_URL || location.origin) + "/auth/callback",
             data: { full_name: fullName },
           },
         });
