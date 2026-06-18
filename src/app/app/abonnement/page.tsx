@@ -6,21 +6,46 @@ const PLANS = [
   {
     name: "Gratuit",
     price: "0 €",
-    features: ["3 factures / mois", "Aperçu & export PDF", "Charte 404 Monkey", "1 client"],
+    features: ["3 factures / mois", "Aperçu & export PDF", "Logo 404 Monkey", "1 client"],
     pro: false,
+    color: "border-hair",
   },
   {
-    name: "Pro",
-    price: "9 € / mois",
+    name: "Freelance",
+    price: "15 € / mois",
     features: [
       "Factures illimitées",
-      "Charte graphique personnalisée (logo + couleurs)",
-      "Lien d’acceptation client",
-      "Relances automatiques",
-      "Compta & exports",
+      "Charte personnalisée",
+      "Acceptation client",
       "Clients illimités",
+      "Suivi compta",
     ],
     pro: true,
+    color: "border-gold",
+  },
+  {
+    name: "Studio",
+    price: "35 € / mois",
+    features: [
+      "Tout le plan Freelance",
+      "Multi-statuts (Auto, SAS...)",
+      "Exports comptables avancés",
+      "Support prioritaire",
+    ],
+    pro: true,
+    color: "border-void",
+  },
+  {
+    name: "Enterprise",
+    price: "75 € / mois",
+    features: [
+      "Marque blanche totale",
+      "Accès API API API",
+      "Accompagnement dédié",
+      "Dashboard multi-comptes",
+    ],
+    pro: true,
+    color: "border-brass",
   },
 ];
 
@@ -36,41 +61,47 @@ export default async function AbonnementPage() {
     .maybeSingle();
 
   const currentPlan = sub?.plan ?? "free";
-  const stripeEnabled = Boolean(process.env.STRIPE_SECRET_KEY && process.env.STRIPE_PRICE_PRO);
+  const stripeEnabled = Boolean(process.env.STRIPE_SECRET_KEY);
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10">
-      <p className="eyebrow text-xs text-moss">Abonnement</p>
-      <h1 className="mb-2 font-display text-4xl font-bold text-forest">Choisis ton plan</h1>
+    <div className="mx-auto max-w-5xl px-6 py-10">
+      <p className="eyebrow text-xs text-brass">Abonnement</p>
+      <h1 className="mb-2 font-display text-4xl font-bold text-void">Choisis ton plan</h1>
       <p className="mb-8 text-mist">
-        Plan actuel : <span className="font-bold text-ink">{currentPlan === "pro" ? "Pro" : "Gratuit"}</span>
+        Ton statut actuel : <span className="font-bold text-ink uppercase">{currentPlan}</span>
       </p>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         {PLANS.map((plan) => (
           <div
             key={plan.name}
-            className={`rounded-3xl border p-6 ${plan.pro ? "border-gold bg-paper" : "border-hair bg-paper"}`}
+            className={`flex flex-col rounded-3xl border p-6 bg-paper ${plan.color}`}
           >
-            <div className="flex items-baseline justify-between">
-              <h2 className="font-display text-2xl font-bold text-forest">{plan.name}</h2>
-              <span className="font-mono text-lg text-ink">{plan.price}</span>
+            <div className="mb-4">
+              <h2 className="font-display text-xl font-bold text-void">{plan.name}</h2>
+              <span className="font-mono text-lg font-bold text-brass">{plan.price}</span>
             </div>
-            <ul className="mt-4 space-y-2">
+            <ul className="flex-1 space-y-2 mb-6">
               {plan.features.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-ink">
-                  <Check size={16} className="mt-0.5 shrink-0 text-gold" /> {f}
+                <li key={f} className="flex items-start gap-2 text-xs text-ink/80 leading-tight">
+                  <Check size={14} className="mt-0.5 shrink-0 text-brass" /> {f}
                 </li>
               ))}
             </ul>
-            {plan.pro && <PromoCheckout stripeEnabled={stripeEnabled} />}
+            {plan.pro ? (
+              <PromoCheckout stripeEnabled={stripeEnabled} />
+            ) : (
+              <button disabled className="w-full rounded-full border border-hair py-2 text-sm font-bold text-mist">
+                Plan actuel
+              </button>
+            )}
           </div>
         ))}
       </div>
 
       {!stripeEnabled && (
-        <p className="mt-6 text-center text-xs text-mist">
-          Le paiement en ligne sera activé prochainement (configuration Stripe).
+        <p className="mt-8 text-center text-xs text-mist italic">
+          Le paiement sécurisé par Stripe sera activé dès la finalisation de ton compte Beloucif.
         </p>
       )}
     </div>
