@@ -18,7 +18,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,6 +52,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
     setLoading(true);
     setError(null);
 
+    if (mode === "signup" && password !== confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      setLoading(false);
+      return;
+    }
+
     try {
       if (mode === "login") {
         const { error: authError } = await supabase.auth.signInWithPassword({
@@ -64,7 +73,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
           password,
           options: {
             emailRedirectTo: (process.env.NEXT_PUBLIC_APP_URL || location.origin) + "/auth/callback",
-            data: { full_name: fullName },
+            data: { 
+              first_name: firstName,
+              last_name: lastName,
+              phone: phone,
+              full_name: `${firstName} ${lastName}`.trim()
+            },
           },
         });
         if (authError) throw authError;
@@ -76,8 +90,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         }
       }
     } catch (err: unknown) {
-      const raw =
-        err instanceof Error ? err.message : "Une erreur est survenue.";
+      const raw = err instanceof Error ? err.message : "Une erreur est survenue.";
       const message = raw.includes("Invalid login credentials")
         ? "Identifiants incorrects. Vérifie ton e-mail et mot de passe."
         : raw.includes("Email not confirmed")
@@ -103,7 +116,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         transition={{ duration: 0.45, ease }}
         className="flex flex-col items-center gap-5 py-4 text-center"
       >
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold/15 text-gold">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brass/15 text-brass">
           <MailCheck size={26} strokeWidth={1.5} />
         </span>
         <div className="flex flex-col gap-2">
@@ -118,7 +131,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         </div>
         <Link
           href="/login"
-          className="mt-2 text-xs font-semibold tracking-wide text-gold underline-offset-2 hover:underline"
+          className="mt-2 text-xs font-semibold tracking-wide text-brass underline-offset-2 hover:underline"
         >
           Retour à la connexion
         </Link>
@@ -152,7 +165,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           type="button"
           onClick={() => handleOAuth("google")}
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-xl border border-hair bg-white px-4 py-3 text-sm font-semibold text-ink transition-colors hover:bg-bone disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-3 rounded-md border border-paper/10 bg-void px-4 py-3 text-sm font-semibold text-ink transition-colors hover:bg-paper/5 disabled:opacity-60"
         >
           <svg className="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
             <path d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z" fill="#EA4335" />
@@ -166,7 +179,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           type="button"
           onClick={() => handleOAuth("linkedin_oidc")}
           disabled={loading}
-          className="flex w-full items-center justify-center gap-3 rounded-xl border border-hair bg-[#0A66C2] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#004182] disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-3 rounded-md border border-paper/10 bg-[#0A66C2] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#004182] disabled:opacity-60"
         >
           <svg className="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -176,9 +189,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
       </div>
 
       <div className="relative flex items-center py-2">
-        <div className="flex-grow border-t border-hair"></div>
+        <div className="flex-grow border-t border-paper/10"></div>
         <span className="mx-4 flex-shrink-0 text-xs text-mist">ou avec e-mail</span>
-        <div className="flex-grow border-t border-hair"></div>
+        <div className="flex-grow border-t border-paper/10"></div>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
@@ -190,16 +203,38 @@ export default function AuthForm({ mode }: AuthFormProps) {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease }}
-              className="overflow-hidden"
+              className="overflow-hidden flex flex-col gap-4"
             >
+              <div className="grid grid-cols-2 gap-4">
+                <Field
+                  id="firstName"
+                  label="Prénom"
+                  type="text"
+                  autoComplete="given-name"
+                  placeholder="Marie"
+                  value={firstName}
+                  onChange={(v) => setFirstName(v)}
+                  required
+                />
+                <Field
+                  id="lastName"
+                  label="Nom"
+                  type="text"
+                  autoComplete="family-name"
+                  placeholder="Dupont"
+                  value={lastName}
+                  onChange={(v) => setLastName(v)}
+                  required
+                />
+              </div>
               <Field
-                id="fullName"
-                label="Nom complet"
-                type="text"
-                autoComplete="name"
-                placeholder="Marie Dupont"
-                value={fullName}
-                onChange={(v) => setFullName(v)}
+                id="phone"
+                label="Téléphone"
+                type="tel"
+                autoComplete="tel"
+                placeholder="+33 6 12 34 56 78"
+                value={phone}
+                onChange={(v) => setPhone(v)}
                 required
               />
             </motion.div>
@@ -220,7 +255,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor="password"
-            className="eyebrow text-[11px] text-mist"
+            className="text-[10px] font-bold uppercase tracking-widest text-mist"
           >
             Mot de passe
           </label>
@@ -236,7 +271,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="w-full rounded-xl border border-hair bg-bone px-4 py-3 pr-11 text-sm text-ink placeholder:text-mist/60 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20"
+              className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 pr-10 text-sm text-ink outline-none transition focus:border-brass"
             />
             <button
               type="button"
@@ -260,6 +295,37 @@ export default function AuthForm({ mode }: AuthFormProps) {
           )}
         </div>
 
+        <AnimatePresence initial={false}>
+          {mode === "signup" && (
+            <motion.div
+              key="confirm-password"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease }}
+              className="overflow-hidden flex flex-col gap-1.5"
+            >
+              <label
+                htmlFor="confirmPassword"
+                className="text-[10px] font-bold uppercase tracking-widest text-mist"
+              >
+                Confirmer le mot de passe
+              </label>
+              <input
+                id="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                placeholder="••••••••"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                minLength={6}
+                className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Error */}
         <AnimatePresence>
           {error && (
@@ -270,7 +336,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.25 }}
               role="alert"
-              className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 mt-2"
+              className="rounded-md border border-red-900 bg-red-950/20 px-4 py-3 text-sm text-red-500 mt-2"
             >
               {error}
             </motion.p>
@@ -281,7 +347,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         <button
           type="submit"
           disabled={loading}
-          className="group relative flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-6 py-3.5 mt-2 font-bold text-forest transition-all hover:bg-forest hover:text-gold disabled:opacity-60"
+          className="btn-primary mt-4 w-full"
         >
           {loading ? (
             <Loader2 size={18} className="animate-spin" />
@@ -304,7 +370,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             Pas encore de compte ?{" "}
             <Link
               href="/signup"
-              className="font-semibold text-gold underline-offset-2 hover:underline"
+              className="font-semibold text-brass hover:underline"
             >
               S'inscrire
             </Link>
@@ -314,7 +380,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             Déjà un compte ?{" "}
             <Link
               href="/login"
-              className="font-semibold text-gold underline-offset-2 hover:underline"
+              className="font-semibold text-brass hover:underline"
             >
               Se connecter
             </Link>
@@ -329,7 +395,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
 interface FieldProps {
   id: string;
   label: string;
-  type: "text" | "email";
+  type: "text" | "email" | "tel";
   autoComplete: string;
   placeholder: string;
   value: string;
@@ -349,7 +415,7 @@ function Field({
 }: FieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="eyebrow text-[11px] text-mist">
+      <label htmlFor={id} className="text-[10px] font-bold uppercase tracking-widest text-mist">
         {label}
       </label>
       <input
@@ -360,7 +426,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         required={required}
-        className="w-full rounded-xl border border-hair bg-bone px-4 py-3 text-sm text-ink placeholder:text-mist/60 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20"
+        className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass"
       />
     </div>
   );

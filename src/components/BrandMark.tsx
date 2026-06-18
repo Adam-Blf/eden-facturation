@@ -15,9 +15,6 @@ export function BrandMark({ className }: { className?: string }) {
         <span className="font-display text-xl font-black leading-none tracking-tighter text-brass">
           404 MONKEY
         </span>
-        <span className="code-badge text-[8px] opacity-60">
-          billing_engine_v1
-        </span>
       </div>
     </div>
   );

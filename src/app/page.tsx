@@ -2,12 +2,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { BrandMark } from "@/components/BrandMark";
 
-const STATUS_CHIPS = [
-  { code: "200", label: "Payée", color: "#3fbf6f" },
-  { code: "402", label: "À payer", color: "#c9a24a" },
-  { code: "404", label: "Introuvable", color: "#e0533d" },
-];
-
 export default function Home() {
   return (
     <main className="relative flex min-h-screen flex-1 flex-col overflow-hidden bg-void text-bone">
@@ -49,21 +43,6 @@ export default function Home() {
           >
             Se connecter
           </Link>
-        </div>
-
-        {/* signature : les statuts de facture */}
-        <div className="mt-14 flex flex-wrap items-center gap-3">
-          {STATUS_CHIPS.map((s) => (
-            <span
-              key={s.code}
-              className="inline-flex items-center gap-2 rounded-full border border-bone/15 bg-white/5 px-4 py-2"
-            >
-              <span className="font-mono text-sm font-bold" style={{ color: s.color }}>
-                {s.code}
-              </span>
-              <span className="text-sm font-medium text-bone/70">{s.label}</span>
-            </span>
-          ))}
         </div>
       </section>
 
