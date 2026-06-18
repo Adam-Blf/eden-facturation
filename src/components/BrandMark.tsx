@@ -2,20 +2,18 @@ import Image from "next/image";
 
 export function BrandMark({ className }: { className?: string }) {
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
+    <div className={`flex items-center gap-3 ${className}`}>
       <Image 
-        src="/logo.png" 
+        src="/logo.svg" 
         alt="404 Monkey" 
-        width={120} 
-        height={120} 
-        className="h-12 w-auto object-contain"
+        width={40} 
+        height={40} 
+        className="h-10 w-auto object-contain"
         priority
       />
-      <div className="flex flex-col">
-        <span className="font-display text-xl font-black leading-none tracking-tighter text-brass">
-          404 MONKEY
-        </span>
-      </div>
+      <span className="font-display text-2xl font-black leading-none tracking-tighter text-brass">
+        404 MONKEY
+      </span>
     </div>
   );
 }
