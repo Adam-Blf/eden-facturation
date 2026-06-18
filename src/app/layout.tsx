@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Spectral, PT_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const display = Spectral({
@@ -40,7 +41,10 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toaster richColors position="top-center" />
+      </body>
     </html>
   );
 }

@@ -1,6 +1,13 @@
 // Domain types for EDEN invoicing & accounting
 
-export type InvoiceStatus = "draft" | "sent" | "paid" | "overdue" | "cancelled";
+export type InvoiceStatus =
+  | "draft"
+  | "issued"
+  | "sent"
+  | "accepted"
+  | "paid"
+  | "overdue"
+  | "cancelled";
 
 export interface BusinessSettings {
   marque: string; // EDEN
@@ -22,6 +29,13 @@ export interface BusinessSettings {
   /** Versement fiscal libératoire activé ? */
   versementLiberatoire: boolean;
   vfrRate: number; // ex. 0.017 (BIC services)
+  /** Charte graphique (DA du client) appliquée à la facture */
+  logoUrl?: string | null;
+  colorPrimary: string;
+  colorAccent: string;
+  colorInk: string;
+  fontDisplay: string;
+  fontBody: string;
 }
 
 export interface Client {
@@ -76,6 +90,12 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
   cotisationRate: 0.212,
   versementLiberatoire: false,
   vfrRate: 0.017,
+  logoUrl: null,
+  colorPrimary: "#14342b",
+  colorAccent: "#c8a24b",
+  colorInk: "#1a1f1c",
+  fontDisplay: "Spectral",
+  fontBody: "PT Sans",
 };
 
 export const DEFAULT_INVOICE: Invoice = {
