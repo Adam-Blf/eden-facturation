@@ -1,26 +1,28 @@
 @import "tailwindcss";
 
 /* ===== EDEN · design tokens ===== */
+/* 404 Monkey · street / dev-culture palette */
 :root {
-  --eden-forest: #14342b;
-  --eden-moss: #3e5c4b;
-  --eden-gold: #c8a24b;
-  --eden-ink: #1a1f1c;
-  --eden-mist: #8a968f;
-  --eden-hair: #e0e4e0;
+  --eden-forest: #0b0b0c; /* void (noir logo) */
+  --eden-moss: #1c1c1e; /* ash (surfaces sombres, hover) */
+  --eden-gold: #c9a24a; /* brass (le 404 doré) */
+  --eden-ink: #141414;
+  --eden-mist: #8a877e; /* smoke (gris chaud) */
+  --eden-hair: #e6e1d5;
   --eden-paper: #ffffff;
-  --eden-bone: #f7f7f4;
+  --eden-bone: #f4efe3; /* crème brush */
+  --eden-tan: #d8c39a; /* tan (lettrage MONKEY) */
 
   --background: var(--eden-bone);
   --foreground: var(--eden-ink);
 }
 
 .dark {
-  --background: #0c1411;
-  --foreground: #eaf0ec;
-  --eden-hair: #233029;
-  --eden-mist: #7e8a83;
-  --eden-paper: #11201a;
+  --background: #0b0b0c;
+  --foreground: #f4efe3;
+  --eden-hair: #2a2a2c;
+  --eden-mist: #8a877e;
+  --eden-paper: #161617;
 }
 
 @theme inline {
@@ -35,6 +37,9 @@
   --color-hair: var(--eden-hair);
   --color-paper: var(--eden-paper);
   --color-bone: var(--eden-bone);
+  --color-tan: var(--eden-tan);
+  --color-void: var(--eden-forest);
+  --color-brass: var(--eden-gold);
 
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
@@ -49,10 +54,50 @@ body {
 }
 
 .font-display {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .eyebrow {
   letter-spacing: 0.18em;
   text-transform: uppercase;
+}
+
+/* signature 404 Monkey · code-badge (langage HTTP) */
+.code-badge {
+  font-family: var(--font-mono), monospace;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+/* brush underline (clin d'oeil au lettrage du logo) */
+.brush-underline {
+  position: relative;
+  display: inline-block;
+}
+.brush-underline::after {
+  content: "";
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  bottom: -0.12em;
+  height: 0.18em;
+  background: var(--eden-gold);
+  border-radius: 1px;
+  transform: skewX(-12deg);
+  opacity: 0.9;
+}
+
+/* impeccable: focus + reduced motion */
+:focus-visible {
+  outline: 2px solid var(--eden-gold);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

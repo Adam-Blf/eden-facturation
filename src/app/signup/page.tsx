@@ -1,10 +1,11 @@
 import AuthForm from "@/components/AuthForm";
 import { Metadata } from "next";
 import Link from "next/link";
+import { BrandMark } from "@/components/BrandMark";
 
 export const metadata: Metadata = {
-  title: "Inscription · EDEN",
-  description: "Crée ton compte EDEN et lance ton studio de facturation.",
+  title: "Inscription · 404 Monkey",
+  description: "Crée ton compte 404 Monkey et facture sans bug.",
 };
 
 export default function SignupPage() {
@@ -31,26 +32,21 @@ function BrandPanel() {
 
       {/* Top: wordmark */}
       <div className="flex flex-col gap-2">
-        <Link
-          href="/"
-          className="font-display text-3xl font-bold tracking-wide text-white"
-        >
-          EDEN
+        <Link href="/" className="text-white">
+          <BrandMark size="lg" className="text-white" />
         </Link>
-        <p className="eyebrow text-[11px] text-gold">
-          Studio de facturation
-        </p>
+        <p className="code-badge text-[11px] text-brass">// facturation sans bug</p>
       </div>
 
       {/* Center: headline */}
       <div className="flex flex-col gap-4 py-10 md:py-0">
-        <h1 className="font-display text-4xl font-bold leading-tight text-white lg:text-5xl">
-          Rejoins des créatifs
-          <span className="italic text-gold"> qui facturent bien.</span>
+        <h1 className="font-display text-4xl font-extrabold leading-tight text-white lg:text-5xl">
+          Crée ton compte,
+          <span className="brush-underline text-brass"> facture sans bug.</span>
         </h1>
         <p className="max-w-xs text-sm leading-relaxed text-white/60">
-          Compte gratuit. Aucune carte requise. Crée ta première facture en
-          moins de 2 minutes.
+          Gratuit, sans carte. Tu choisis ton statut d’entreprise, on règle les
+          mentions légales et la TVA pour toi.
         </p>
       </div>
 
@@ -58,8 +54,8 @@ function BrandPanel() {
       <ul className="hidden flex-col gap-3 md:flex">
         {[
           "Inscription en 30 secondes",
-          "Première facture PDF offerte",
-          "Suivi CA et seuils micro inclus",
+          "Tous statuts d’entreprise",
+          "Première facture offerte",
         ].map((item) => (
           <li key={item} className="flex items-center gap-3 text-sm text-white/70">
             <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-gold" />

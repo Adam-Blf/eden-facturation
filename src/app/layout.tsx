@@ -1,35 +1,53 @@
-import type { Metadata } from "next";
-import { Spectral, PT_Sans, IBM_Plex_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 
-const display = Spectral({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "700", "800"],
   variable: "--font-display",
   display: "swap",
 });
 
-const sans = PT_Sans({
+const sans = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "500", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const mono = IBM_Plex_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "700"],
   variable: "--font-mono",
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "EDEN · Facturation & compta",
-  description:
-    "SaaS de facturation et de comptabilité pour micro-entreprise. Génère des factures au design soigné, gère tes clients et ta compta.",
+  title: "404 Monkey · Facturation sans bug",
+  description: "La facturation pour toutes les entreprises, de l'auto-entrepreneur à la SAS. Factures à ta charte graphique, suivi compta, acceptation client. Par 404 Monkey.",
+  keywords: ["facturation", "devis", "freelance", "comptabilité", "entreprise", "404 monkey"],
+  authors: [{ name: "Adam Beloucif" }],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "https://facturation.404monkey.com",
+    title: "404 Monkey · Facturation sans bug",
+    description: "La facturation pour toutes les entreprises, de l'auto-entrepreneur à la SAS.",
+    siteName: "404 Monkey",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "404 Monkey · Facturation",
+    description: "Factures à ta charte graphique, suivi compta, acceptation client.",
+  },
 };
 
 export default function RootLayout({

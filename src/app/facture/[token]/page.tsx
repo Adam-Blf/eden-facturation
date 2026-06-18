@@ -74,7 +74,7 @@ export default async function PublicInvoicePage({
             <PublicInvoiceAccept token={token} status={data.status} acceptedAt={data.accepted_at} />
           </div>
         </div>
-        <p className="mt-4 text-center text-xs text-mist">Propulsé par EDEN · facturation</p>
+        <p className="mt-4 text-center text-xs text-mist">Propulsé par 404 Monkey</p>
       </div>
     </main>
   );

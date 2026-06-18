@@ -6,7 +6,7 @@ const PLANS = [
   {
     name: "Gratuit",
     price: "0 €",
-    features: ["3 factures / mois", "Aperçu & export PDF", "Design EDEN", "1 client"],
+    features: ["3 factures / mois", "Aperçu & export PDF", "Charte 404 Monkey", "1 client"],
     pro: false,
   },
   {

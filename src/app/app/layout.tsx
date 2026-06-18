@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SidebarNav from "@/components/app/SidebarNav";
+import { BrandMark } from "@/components/BrandMark";
 
 export default async function AppLayout({
   children,
@@ -19,10 +20,10 @@ export default async function AppLayout({
     <div className="flex min-h-screen">
       <aside className="hidden w-64 shrink-0 flex-col justify-between bg-forest p-5 text-white md:flex">
         <div>
-          <Link href="/app" className="font-display text-2xl font-bold tracking-wide">
-            EDEN
+          <Link href="/app" className="text-white">
+            <BrandMark className="text-white" />
           </Link>
-          <p className="eyebrow mb-8 mt-1 text-[10px] text-gold">Facturation</p>
+          <p className="code-badge mb-8 mt-1 text-[10px] text-brass">// facturation</p>
           <SidebarNav />
         </div>
         <form action="/auth/signout" method="post">
@@ -38,8 +39,8 @@ export default async function AppLayout({
 
       <div className="flex flex-1 flex-col bg-bone">
         <header className="flex items-center justify-between border-b border-hair bg-paper px-5 py-3 md:hidden">
-          <Link href="/app" className="font-display text-xl font-bold text-forest">
-            EDEN
+          <Link href="/app" className="text-ink">
+            <BrandMark className="text-ink" />
           </Link>
           <form action="/auth/signout" method="post">
             <button type="submit" className="text-mist">

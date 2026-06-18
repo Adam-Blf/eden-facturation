@@ -175,7 +175,7 @@ export default function InvoiceEditor() {
           </div>
         </section>
 
-        <Section title="Émetteur · EDEN">
+        <Section title="Émetteur">
           <Field label="Marque" value={settings.marque} onChange={(v) => setS("marque", v)} />
           <Field label="Nom" value={settings.nom} onChange={(v) => setS("nom", v)} />
           <Field label="Tagline" value={settings.tagline} onChange={(v) => setS("tagline", v)} />
