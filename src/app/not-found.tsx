@@ -54,38 +54,21 @@ export default function NotFound() {
           </motion.div>
         </motion.div>
 
-        {/* 404 geant glitch */}
+        {/* 404 geant */}
         <motion.h1
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.15, ease }}
-          className="relative mt-4 font-display text-[6rem] font-black leading-none tracking-tighter text-brass md:text-[11rem]"
+          className="mt-4 font-display text-[6rem] font-black leading-none tracking-tighter text-brass md:text-[11rem]"
         >
           404
-          <motion.span
-            aria-hidden
-            className="absolute inset-0 text-tan mix-blend-screen"
-            animate={{ x: [0, 2, -2, 0], opacity: [0.35, 0.55, 0.35] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            404
-          </motion.span>
         </motion.h1>
 
-        <motion.p
-          className="eyebrow mt-2 text-brass"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-        >
-          Erreur 404
-        </motion.p>
-
         <motion.h2
-          className="mt-2 font-display text-2xl font-bold uppercase tracking-[0.15em] text-ink md:text-3xl"
+          className="mt-4 font-display text-2xl font-bold text-ink md:text-3xl"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, ease }}
+          transition={{ delay: 0.3, ease }}
         >
           Page introuvable
         </motion.h2>
@@ -120,9 +103,14 @@ export default function NotFound() {
         </motion.div>
       </div>
 
-      <footer className="absolute bottom-8 code-badge text-[10px] opacity-40">
-        error_code: [PAGE_NOT_FOUND] // 404_monkey_engine
-      </footer>
+      <motion.footer
+        className="absolute bottom-8 text-xs text-mist"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+      >
+        404 Monkey · ta facturation sans bug
+      </motion.footer>
     </main>
   );
 }
