@@ -1,25 +1,25 @@
 :root {
   /* Mood: Midnight Jazz Club — Smoky brass, saxophone light, deep ink */
   
-  --bg: oklch(0.08 0 0); /* Pure Black / Near-Black (Vercel style) */
-  --surface: oklch(0.12 0.01 110); /* Deep olive/brass tint */
-  --ink: oklch(0.98 0.005 110); /* Off-white with hint of brass */
-  --primary: oklch(0.72 0.12 110); /* The Brass / Gold from logo */
-  --accent: oklch(0.55 0.18 110); /* Saturated golden-brown */
-  --muted: oklch(0.60 0.01 110); /* Muted brass-grey */
+  --bg: #010000; /* Pure Black requested */
+  --surface: #0a0a0a; /* Very dark surface */
+  --ink: #f5f5f5; /* Off-white for readability */
+  --primary: #d8b172; /* Precise Brass/Gold requested */
+  --accent: #b58d4c; /* Saturated golden-brown */
+  --muted: #666666; /* Muted grey */
   
   --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-lg: 12px; /* Max 12-16px as per Impeccable rules */
+  --radius-lg: 12px;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg: oklch(1.0 0 0); /* Pure White */
-    --surface: oklch(0.97 0.005 110);
-    --ink: oklch(0.15 0.01 110);
-    --primary: oklch(0.65 0.15 110);
-    --accent: oklch(0.50 0.20 110);
-    --muted: oklch(0.45 0.01 110);
+    --bg: #ffffff;
+    --surface: #f9f9f9;
+    --ink: #010000;
+    --primary: #d8b172;
+    --accent: #b58d4c;
+    --muted: #888888;
   }
 }

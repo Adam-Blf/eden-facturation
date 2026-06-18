@@ -27,9 +27,17 @@ export async function validatePromo(code: string) {
   };
 }
 
-export async function createCheckout(promoCode?: string) {
+export type PaidPlan = "starter" | "pro" | "unlimited";
+
+const PRICE_BY_PLAN: Record<PaidPlan, string | undefined> = {
+  starter: process.env.STRIPE_PRICE_STARTER,
+  pro: process.env.STRIPE_PRICE_PRO,
+  unlimited: process.env.STRIPE_PRICE_UNLIMITED,
+};
+
+export async function createCheckout(plan: PaidPlan = "pro", promoCode?: string) {
   const stripe = getStripe();
-  const priceId = process.env.STRIPE_PRICE_PRO;
+  const priceId = PRICE_BY_PLAN[plan];
   if (!stripe || !priceId) {
     return { error: "Le paiement sera bientôt disponible." };
   }

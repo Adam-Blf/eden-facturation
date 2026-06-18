@@ -3,9 +3,17 @@
 import { useState, useTransition } from "react";
 import { Loader2, Tag, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import { validatePromo, createCheckout } from "@/app/app/abonnement/actions";
+import { validatePromo, createCheckout, type PaidPlan } from "@/app/app/abonnement/actions";
 
-export default function PromoCheckout({ stripeEnabled }: { stripeEnabled: boolean }) {
+export default function PromoCheckout({
+  stripeEnabled,
+  plan = "pro",
+  planLabel = "Passer à Pro",
+}: {
+  stripeEnabled: boolean;
+  plan?: PaidPlan;
+  planLabel?: string;
+}) {
   const [code, setCode] = useState("");
   const [applied, setApplied] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
@@ -27,7 +35,7 @@ export default function PromoCheckout({ stripeEnabled }: { stripeEnabled: boolea
 
   function subscribe() {
     startTransition(async () => {
-      const res = await createCheckout(applied ?? undefined);
+      const res = await createCheckout(plan, applied ?? undefined);
       if ("error" in res) toast.error(res.error);
       else if (res.url) window.location.href = res.url;
     });
@@ -60,7 +68,7 @@ export default function PromoCheckout({ stripeEnabled }: { stripeEnabled: boolea
         className="flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 font-bold text-forest transition hover:bg-forest hover:text-white disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
-        {stripeEnabled ? "Passer à Pro" : "Bientôt disponible"}
+        {stripeEnabled ? planLabel : "Bientôt disponible"}
       </button>
     </div>
   );

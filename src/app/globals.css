@@ -8,6 +8,12 @@
   --color-tan: var(--accent);
   --color-mist: var(--muted);
 
+  /* alias legacy -> palette Black & Brass (compat composants existants) */
+  --color-gold: var(--primary);
+  --color-bone: var(--ink);
+  --color-forest: #0d0d0b;
+  --color-hair: #2a2622;
+
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -32,6 +38,36 @@ h1, h2, h3, h4, h5, h6, .font-display {
   text-transform: uppercase;
   color: var(--primary);
   opacity: 0.8;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: var(--bg);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 32px -10px var(--primary);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .brush-underline {
