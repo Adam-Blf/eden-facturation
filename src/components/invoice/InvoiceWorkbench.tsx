@@ -143,7 +143,7 @@ export default function InvoiceWorkbench({
                     {c.nom}
                   </option>
                 ))}
-              select>
+              </select>
             )}
           </div>
           <div className="grid grid-cols-2 gap-4">
