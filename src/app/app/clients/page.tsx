@@ -1,8 +1,14 @@
-import { Trash2, UserPlus } from "lucide-react";
+import Link from "next/link";
+import { Trash2, UserPlus, AlertTriangle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { addClient, deleteClient } from "./actions";
 
-export default async function ClientsPage() {
+export default async function ClientsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   const supabase = await createClient();
   const { data: clients } = await supabase.from("clients").select("*").order("nom");
 
@@ -10,6 +16,22 @@ export default async function ClientsPage() {
     <div className="mx-auto max-w-4xl px-6 py-10">
       <p className="code-badge text-[10px] mb-2">REPERTOIRE_CLIENTS</p>
       <h1 className="mb-8 font-display text-4xl font-bold text-ink">Tes clients</h1>
+
+      {error === "quota" && (
+        <div className="mb-6 flex items-start gap-3 rounded-md border border-brass/40 bg-brass/10 px-5 py-4 text-sm text-ink">
+          <AlertTriangle size={18} className="mt-0.5 shrink-0 text-brass" />
+          <div>
+            <p className="font-bold">Quota de clients atteint.</p>
+            <p className="text-mist">
+              Ton plan ne permet pas d&apos;ajouter plus de clients.{" "}
+              <Link href="/app/abonnement" className="font-semibold text-brass underline underline-offset-2">
+                Passe à un plan supérieur
+              </Link>{" "}
+              pour en ajouter davantage.
+            </p>
+          </div>
+        </div>
+      )}
 
       <form action={addClient} className="mb-8 rounded-md border border-paper/10 bg-void p-6 shadow-sm">
         <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-brass">Ajouter un client</h2>

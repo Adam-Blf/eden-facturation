@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export async function addClient(formData: FormData) {
@@ -9,7 +10,7 @@ export async function addClient(formData: FormData) {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return;
-  await supabase.from("clients").insert({
+  const { error } = await supabase.from("clients").insert({
     user_id: user.id,
     nom: String(formData.get("nom") ?? ""),
     adresse1: String(formData.get("adresse1") ?? ""),
@@ -17,6 +18,10 @@ export async function addClient(formData: FormData) {
     email: String(formData.get("email") ?? ""),
     particulier: formData.get("particulier") === "on",
   });
+  if (error) {
+    const quota = error.message?.includes("CLIENT_QUOTA_REACHED");
+    redirect(quota ? "/app/clients?error=quota" : "/app/clients?error=1");
+  }
   revalidatePath("/app/clients");
 }
 
