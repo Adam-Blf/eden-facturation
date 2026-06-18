@@ -25,16 +25,16 @@ export default function Home() {
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
           <Link
-            href="/facturation"
+            href="/signup"
             className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 font-bold text-forest transition hover:bg-white"
           >
-            Créer une facture <ArrowRight size={18} />
+            Créer mon compte <ArrowRight size={18} />
           </Link>
           <Link
-            href="/facturation"
+            href="/login"
             className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 font-bold text-white transition hover:border-gold hover:text-gold"
           >
-            Voir la démo
+            Se connecter
           </Link>
         </div>
       </section>
