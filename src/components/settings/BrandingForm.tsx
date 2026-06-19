@@ -46,6 +46,54 @@ function Field({
   );
 }
 
+const FORMES_JURIDIQUES = [
+  "Auto-entrepreneur (Micro-entreprise)",
+  "Entrepreneur Individuel (EI)",
+  "EURL",
+  "SARL",
+  "SASU",
+  "SAS",
+  "SA",
+  "SNC",
+  "SCI",
+  "Profession libérale",
+  "Association (loi 1901)",
+];
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+  full,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+  full?: boolean;
+}) {
+  const opts = !value || options.includes(value) ? options : [value, ...options];
+  return (
+    <label className={`block ${full ? "col-span-2" : ""}`}>
+      <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest text-mist">
+        {label}
+      </span>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass"
+      >
+        {opts.map((o) => (
+          <option key={o} value={o} className="bg-void text-ink">
+            {o}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
 function ColorField({
   label,
   value,
@@ -202,7 +250,7 @@ export default function BrandingForm({
             <Field label="Prénom Nom" placeholder="Ex: Adam Beloucif" value={s.nom} onChange={(v) => set("nom", v)} />
             <Field label="Tagline (Slogan)" value={s.tagline} onChange={(v) => set("tagline", v)} full />
             <Field label="Texte latéral (Spine)" value={s.spine} onChange={(v) => set("spine", v)} />
-            <Field label="Forme juridique" placeholder="EI, EURL, SAS..." value={s.forme} onChange={(v) => set("forme", v)} />
+            <SelectField label="Forme juridique" value={s.forme} onChange={(v) => set("forme", v)} options={FORMES_JURIDIQUES} />
             <Field label="Adresse postale" value={s.adresse1} onChange={(v) => set("adresse1", v)} />
             <Field label="Code postal · ville" value={s.adresse2} onChange={(v) => set("adresse2", v)} />        
             <Field label="Téléphone" value={s.tel} onChange={(v) => set("tel", v)} />

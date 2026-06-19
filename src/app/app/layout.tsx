@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import SidebarNav from "@/components/app/SidebarNav";
 import { BrandMark } from "@/components/BrandMark";
@@ -37,7 +37,14 @@ export default async function AppLayout({
             </div>
             <p className="truncate text-xs font-medium text-ink opacity-60">{user.email}</p>
           </div>
-          
+
+          <Link
+            href="/app/parametres"
+            className="mb-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider text-ink/70 transition-all hover:bg-brass/10 hover:text-brass"
+          >
+            <Settings size={14} /> Paramètres
+          </Link>
+
           <form action="/auth/signout" method="post">
             <button
               type="submit"
