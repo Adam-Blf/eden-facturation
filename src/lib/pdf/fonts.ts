@@ -4,7 +4,7 @@ let registered = false;
 
 /**
  * Enregistre les polices OFL (servies depuis /public/fonts) pour le rendu PDF.
- * Spectral (display serif), PT Sans (corps), IBM Plex Mono (data).
+ * Spectral (display serif), PT Sans (corps + chiffres a zero plein).
  */
 export function registerPdfFonts() {
   if (registered) return;
@@ -29,13 +29,6 @@ export function registerPdfFonts() {
     ],
   });
 
-  Font.register({
-    family: "IBM Plex Mono",
-    fonts: [
-      { src: "/fonts/IBMPlexMono-Regular.ttf", fontWeight: 400 },
-      { src: "/fonts/IBMPlexMono-Medium.ttf", fontWeight: 500 },
-    ],
-  });
 
   // pas de césure automatique dans les libellés
   Font.registerHyphenationCallback((word) => [word]);

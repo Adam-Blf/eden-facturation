@@ -70,6 +70,35 @@ h1, h2, h3, h4, h5, h6, .font-display {
   cursor: not-allowed;
 }
 
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-secondary:hover {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.card-brutal {
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  background: var(--surface);
+  padding: 1.25rem;
+}
+
 .brush-underline {
   position: relative;
   display: inline-block;
