@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Space_Grotesk, DM_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Space_Grotesk, Tai_Heritage_Pro } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import "./tokens.css";
@@ -18,10 +18,10 @@ const sans = Space_Grotesk({
   display: "swap",
 });
 
-// DM Mono : chiffres a zero plein (pas de point ni slash dans le 0)
-const mono = DM_Mono({
+// Tai Heritage Pro : zero plein (pas de point ni slash), demande par Adam
+const mono = Tai_Heritage_Pro({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "700"],
   variable: "--font-mono",
   display: "swap",
 });
