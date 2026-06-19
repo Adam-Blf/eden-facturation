@@ -9,10 +9,20 @@ export default async function NouvelleFacturePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [{ data: settingsRow }, { data: clientsRows }] = await Promise.all([
+  const year = new Date().getFullYear();
+  const [{ data: settingsRow }, { data: clientsRows }, { data: invoicesYear }] = await Promise.all([
     supabase.from("business_settings").select("*").eq("user_id", user!.id).maybeSingle(),
     supabase.from("clients").select("*").order("nom"),
+    supabase.from("invoices").select("numero").eq("user_id", user!.id).like("numero", `${year}-%`),
   ]);
+
+  // compteur automatique : prochain numero sequentiel de l'annee (AAAA-NNNN)
+  let maxSeq = 0;
+  for (const inv of invoicesYear ?? []) {
+    const m = /^\d{4}-(\d+)$/.exec(inv.numero ?? "");
+    if (m) maxSeq = Math.max(maxSeq, parseInt(m[1], 10));
+  }
+  const nextNumero = `${year}-${String(maxSeq + 1).padStart(4, "0")}`;
 
   const clients: Client[] = (clientsRows ?? []).map((c) => ({
     id: c.id,
@@ -23,5 +33,11 @@ export default async function NouvelleFacturePage() {
     particulier: c.particulier ?? true,
   }));
 
-  return <InvoiceWorkbench settings={settingsFromRow(settingsRow)} clients={clients} />;
+  return (
+    <InvoiceWorkbench
+      settings={settingsFromRow(settingsRow)}
+      clients={clients}
+      defaultNumero={nextNumero}
+    />
+  );
 }

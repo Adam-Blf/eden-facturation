@@ -4,7 +4,7 @@ import Link from "next/link";
 import { BrandMark } from "@/components/BrandMark";
 
 export const metadata: Metadata = {
-  title: "Inscription · 404 Monkey",
+  title: "Inscription a 404 Monkey",
   description: "Crée ton compte 404 Monkey et facture sans bug.",
 };
 

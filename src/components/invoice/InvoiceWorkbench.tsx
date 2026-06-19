@@ -30,11 +30,13 @@ function Field({
   value,
   onChange,
   type = "text",
+  readOnly,
 }: {
   label: string;
   value: string | number;
   onChange: (v: string) => void;
   type?: string;
+  readOnly?: boolean;
 }) {
   return (
     <label className="block">
@@ -43,7 +45,10 @@ function Field({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass"
+        readOnly={readOnly}
+        className={`w-full rounded-md border border-paper/10 px-3 py-2 text-sm text-ink outline-none transition focus:border-brass ${
+          readOnly ? "cursor-not-allowed bg-paper/40 text-mist" : "bg-void"
+        }`}
       />
     </label>
   );
@@ -52,11 +57,15 @@ function Field({
 export default function InvoiceWorkbench({
   settings,
   clients,
+  defaultNumero,
 }: {
   settings: BusinessSettings;
   clients: Client[];
+  defaultNumero?: string;
 }) {
-  const [invoice, setInvoice] = useState<Invoice>(DEFAULT_INVOICE);
+  const [invoice, setInvoice] = useState<Invoice>(
+    defaultNumero ? { ...DEFAULT_INVOICE, numero: defaultNumero } : DEFAULT_INVOICE,
+  );
   const [pending, startTransition] = useTransition();
   const [link, setLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -120,7 +129,7 @@ export default function InvoiceWorkbench({
         <h1 className="mb-8 font-display text-3xl font-bold text-ink">Éditeur</h1>
 
         <section className="mb-8 grid grid-cols-2 gap-4">
-          <Field label="Numéro" value={invoice.numero} onChange={(v) => set("numero", v)} />
+          <Field label="Numéro (auto)" value={invoice.numero} onChange={(v) => set("numero", v)} readOnly />
           <Field label="Date d’émission" value={invoice.dateEmission} onChange={(v) => set("dateEmission", v)} />
           <Field label="Période de prestation" value={invoice.datePrestation} onChange={(v) => set("datePrestation", v)} />
           <Field label="Échéance" value={invoice.echeance} onChange={(v) => set("echeance", v)} />
@@ -150,7 +159,7 @@ export default function InvoiceWorkbench({
             <Field label="Nom" value={invoice.client.nom} onChange={(v) => setClient("nom", v)} />
             <Field label="Email" value={invoice.client.email} onChange={(v) => setClient("email", v)} />
             <Field label="Adresse" value={invoice.client.adresse1} onChange={(v) => setClient("adresse1", v)} />
-            <Field label="Code postal · ville" value={invoice.client.adresse2} onChange={(v) => setClient("adresse2", v)} />
+            <Field label="Code postal, ville" value={invoice.client.adresse2} onChange={(v) => setClient("adresse2", v)} />
           </div>
           <label className="mt-3 flex items-center gap-2 text-xs text-mist">
             <input

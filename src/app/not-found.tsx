@@ -111,7 +111,7 @@ export default function NotFound() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          404 Monkey · ta facturation sans bug
+          404 Monkey, ta facturation sans bug
         </motion.p>
       </div>
     </main>

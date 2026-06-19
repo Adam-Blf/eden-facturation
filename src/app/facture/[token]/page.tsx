@@ -55,7 +55,7 @@ export default async function PublicInvoicePage({
                     <span className="font-mono text-ink">{formatEUR(l.qte * l.pu)}</span>
                   </div>
                   {l.details.filter(Boolean).map((d, j) => (
-                    <p key={j} className="text-sm text-mist">· {d}</p>
+                    <p key={j} className="text-sm text-mist">- {d}</p>
                   ))}
                 </div>
               ))}

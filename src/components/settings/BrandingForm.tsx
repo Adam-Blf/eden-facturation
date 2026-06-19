@@ -252,7 +252,7 @@ export default function BrandingForm({
             <Field label="Texte latéral (Spine)" value={s.spine} onChange={(v) => set("spine", v)} />
             <SelectField label="Forme juridique" value={s.forme} onChange={(v) => set("forme", v)} options={FORMES_JURIDIQUES} />
             <Field label="Adresse postale" value={s.adresse1} onChange={(v) => set("adresse1", v)} />
-            <Field label="Code postal · ville" value={s.adresse2} onChange={(v) => set("adresse2", v)} />        
+            <Field label="Code postal, ville" value={s.adresse2} onChange={(v) => set("adresse2", v)} />        
             <Field label="Téléphone" value={s.tel} onChange={(v) => set("tel", v)} />
             <Field label="Email professionnel" value={s.email} onChange={(v) => set("email", v)} />
             <Field label="SIREN / SIRET" value={s.siren} onChange={(v) => set("siren", v)} />
