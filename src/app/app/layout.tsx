@@ -16,6 +16,13 @@ export default async function AppLayout({
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
+  const { data: settings } = await supabase
+    .from("business_settings")
+    .select("onboarded")
+    .eq("user_id", user.id)
+    .maybeSingle();
+  if (!settings?.onboarded) redirect("/bienvenue");
+
   return (
     <div className="flex min-h-screen bg-void">
       {/* Sidebar minimaliste high-end */}
