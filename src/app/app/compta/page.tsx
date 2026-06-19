@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { settingsFromRow } from "@/lib/db";
-import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS } from "@/lib/compta";
+import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/lib/compta";
 import { formatEUR } from "@/lib/format";
 import { addPayment, addExpense } from "./actions";
 
@@ -56,7 +56,7 @@ export default async function ComptaPage() {
         <div className="h-3 w-full overflow-hidden rounded-full bg-bone">
           <div className="h-full rounded-full bg-gold" style={{ width: `${Math.min(seuil.pctTva, 100)}%` }} />
         </div>
-        {seuil.depasseMicro && (
+        {seuil.depasseMicro && isMicroEntreprise(settings.forme) && (
           <p className="mt-2 text-sm text-[#b3261e]">⚠️ Plafond micro-entreprise dépassé ({formatEUR(SEUILS.microServices)}).</p>
         )}
       </div>
