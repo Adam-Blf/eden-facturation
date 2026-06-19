@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Trash2, UserPlus, AlertTriangle } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import { addClient, deleteClient } from "./actions";
+import { createClient } from "@/shared/supabase/server";
+import { addClient, deleteClient } from "@/features/clients/actions";
 
 export default async function ClientsPage({
   searchParams,

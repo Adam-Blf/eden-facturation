@@ -1,7 +1,7 @@
-import AuthForm from "@/components/AuthForm";
+import AuthForm from "@/features/auth/AuthForm";
 import { Metadata } from "next";
 import Link from "next/link";
-import { BrandMark } from "@/components/BrandMark";
+import { BrandMark } from "@/shared/ui/BrandMark";
 
 export const metadata: Metadata = {
   title: "Inscription a 404 Monkey",

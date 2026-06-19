@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Plus, FileText } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import { INVOICE_STATUS_LABELS, INVOICE_STATUS_COLORS } from "@/lib/db";
-import { formatEUR } from "@/lib/format";
+import { createClient } from "@/shared/supabase/server";
+import { INVOICE_STATUS_LABELS, INVOICE_STATUS_COLORS } from "@/features/invoicing/status";
+import { formatEUR } from "@/shared/format";
 
 type Row = {
   id: string;

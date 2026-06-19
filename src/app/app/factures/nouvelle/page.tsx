@@ -1,7 +1,7 @@
-import { createClient } from "@/lib/supabase/server";
-import { settingsFromRow } from "@/lib/db";
-import InvoiceWorkbench from "@/components/invoice/InvoiceWorkbench";
-import type { Client } from "@/lib/types";
+import { createClient } from "@/shared/supabase/server";
+import { settingsFromRow } from "@/features/branding/settings-mapping";
+import InvoiceWorkbench from "@/features/invoicing/InvoiceWorkbench";
+import type { Client } from "@/features/clients/types";
 
 export default async function NouvelleFacturePage() {
   const supabase = await createClient();
