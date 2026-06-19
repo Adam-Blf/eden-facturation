@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { BrandMark } from "@/components/BrandMark";
+import { BrandMark } from "@/shared/ui/BrandMark";
 
 export default function Home() {
   return (

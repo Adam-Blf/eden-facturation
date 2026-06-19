@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Plus, FileText } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import { INVOICE_STATUS_LABELS, INVOICE_STATUS_COLORS } from "@/lib/db";
-import { formatEUR } from "@/lib/format";
+import { createClient } from "@/shared/supabase/server";
+import { INVOICE_STATUS_LABELS, INVOICE_STATUS_COLORS } from "@/features/invoicing/status";
+import { formatEUR } from "@/shared/format";
 
 type Row = {
   id: string;
@@ -59,8 +59,14 @@ export default async function FacturesPage() {
             <tbody>
               {invoices.map((inv) => (
                 <tr key={inv.id} className="border-b border-paper/10 last:border-0 hover:bg-paper/5 transition-colors">
-                  <td className="px-5 py-4 font-mono text-xs text-brass">{inv.numero}</td>
-                  <td className="px-5 py-4 font-medium text-ink">{inv.snapshot?.invoice?.client?.nom ?? "Sans client"}</td>
+                  <td className="px-5 py-4 font-mono text-xs text-brass">
+                    <Link href={`/app/factures/${inv.id}`} className="hover:underline">{inv.numero}</Link>
+                  </td>
+                  <td className="px-5 py-4 font-medium text-ink">
+                    <Link href={`/app/factures/${inv.id}`} className="hover:text-brass">
+                      {inv.snapshot?.invoice?.client?.nom ?? "Sans client"}
+                    </Link>
+                  </td>
                   <td className="px-5 py-4 text-mist">{inv.date_emission}</td>
                   <td className="px-5 py-4 text-right font-mono text-ink font-bold">{formatEUR(Number(inv.total_ht))}</td>
                   <td className="px-5 py-4 text-center">

@@ -1,5 +1,5 @@
-import { createClient } from "@/lib/supabase/server";
-import BillingPlans from "@/components/billing/BillingPlans";
+import { createClient } from "@/shared/supabase/server";
+import BillingPlans from "@/features/billing/BillingPlans";
 
 export default async function AbonnementPage() {
   const supabase = await createClient();

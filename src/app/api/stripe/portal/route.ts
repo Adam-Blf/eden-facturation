@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { getStripe } from "@/lib/stripe";
+import { createClient } from "@/shared/supabase/server";
+import { getStripe } from "@/features/billing/stripe";
 
 export async function POST(req: Request) {
   const supabase = await createClient();

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { getStripe } from "@/lib/stripe";
+import { getStripe } from "@/features/billing/stripe";
 
 type PlanInfo = { plan: string; maxClients: number | null };
 
