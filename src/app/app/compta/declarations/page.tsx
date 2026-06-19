@@ -1,111 +1,57 @@
 import Link from "next/link";
-import { Download, ShieldCheck } from "lucide-react";
-import { loadDeclarationInvoices } from "@/features/declarations/data";
-import { anonymizeInvoices } from "@/features/declarations/anonymize";
-import { INVOICE_STATUS_LABELS } from "@/features/invoicing/status";
+import { ShieldCheck, ChevronRight, Download } from "lucide-react";
+import { loadDeclarationYears } from "@/features/declarations/data";
 import { formatEUR } from "@/shared/format";
 
-export default async function DeclarationsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ year?: string }>;
-}) {
-  const { year: yearParam } = await searchParams;
+export default async function DeclarationsHistoryPage() {
+  const years = await loadDeclarationYears();
   const currentYear = new Date().getFullYear();
-  const year = Number(yearParam) || currentYear;
-
-  const invoices = await loadDeclarationInvoices(year);
-  const rows = anonymizeInvoices(invoices);
-  const total = rows.reduce((s, r) => s + r.totalHT, 0);
-  const years = [currentYear, currentYear - 1, currentYear - 2];
+  // L'année courante figure toujours, même sans facture encore émise.
+  if (!years.some((y) => y.year === currentYear)) {
+    years.unshift({ year: currentYear, count: 0, totalHT: 0 });
+  }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10">
+    <div className="mx-auto max-w-4xl px-6 py-10">
       <p className="eyebrow text-xs text-brass">Comptabilité</p>
-      <h1 className="mb-2 font-display text-4xl font-bold text-ink">
-        Déclarations {year}
-      </h1>
+      <h1 className="mb-2 font-display text-4xl font-bold text-ink">Déclarations</h1>
       <p className="mb-8 max-w-2xl text-sm text-mist">
-        Récap des recettes pour vos déclarations URSSAF, TVA et impôts. Les
-        clients sont <strong className="text-ink">anonymisés</strong> (nom /
-        raison sociale remplacés par un pseudonyme) — vous transmettez vos
-        chiffres sans exposer de données personnelles.
+        Vos récaps de recettes pour les déclarations URSSAF, TVA et impôts.
+        Les clients sont <strong className="text-ink">anonymisés</strong> : vous
+        transmettez vos chiffres sans exposer de données personnelles.
       </p>
 
-      <div className="mb-6 flex flex-wrap items-center gap-3">
-        <div className="flex gap-1 rounded-full border border-hair bg-paper p-1">
-          {years.map((y) => (
-            <Link
-              key={y}
-              href={`/app/compta/declarations?year=${y}`}
-              className={`rounded-full px-4 py-1.5 text-sm font-bold transition ${
-                y === year
-                  ? "bg-brass text-void"
-                  : "text-mist hover:text-ink"
-              }`}
-            >
-              {y}
+      <div className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brass">
+        <ShieldCheck size={16} /> Historique par exercice
+      </div>
+
+      <div className="overflow-hidden rounded-2xl border border-hair bg-void">
+        {years.map((y) => (
+          <div
+            key={y.year}
+            className="flex items-center justify-between border-b border-hair px-6 py-5 last:border-0 hover:bg-paper/5"
+          >
+            <Link href={`/app/compta/declarations/${y.year}`} className="flex items-center gap-4 group">
+              <span className="font-display text-2xl font-bold text-ink group-hover:text-brass">{y.year}</span>
+              <span className="text-sm text-mist">
+                {y.count} facture{y.count > 1 ? "s" : ""} · {formatEUR(y.totalHT)}
+              </span>
             </Link>
-          ))}
-        </div>
-        <a
-          href={`/api/declarations?year=${year}`}
-          className="inline-flex items-center gap-2 rounded-full bg-brass px-5 py-2.5 text-sm font-bold text-void hover:bg-tan"
-        >
-          <Download size={16} /> Télécharger le récap anonymisé (CSV)
-        </a>
+            <div className="flex items-center gap-4">
+              <a
+                href={`/api/declarations?year=${y.year}`}
+                className="inline-flex items-center gap-1.5 rounded-full border border-hair px-3 py-1.5 text-xs font-bold text-mist hover:border-brass hover:text-ink"
+                title="Télécharger le récap anonymisé (CSV)"
+              >
+                <Download size={14} /> CSV
+              </a>
+              <Link href={`/app/compta/declarations/${y.year}`} className="text-mist hover:text-brass">
+                <ChevronRight size={20} />
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
-
-      <div className="mb-6 flex items-center gap-3 rounded-2xl border border-hair bg-paper p-4 text-sm text-mist">
-        <ShieldCheck size={18} className="shrink-0 text-brass" />
-        <span>
-          {rows.length} facture{rows.length > 1 ? "s" : ""} ·{" "}
-          <strong className="text-ink">{formatEUR(total)}</strong> de CA facturé
-          sur {year}.
-        </span>
-      </div>
-
-      {rows.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-hair bg-void p-12 text-center text-sm text-mist">
-          Aucune facture pour {year}.
-        </div>
-      ) : (
-        <div className="overflow-hidden rounded-2xl border border-hair bg-void">
-          <table className="w-full text-sm">
-            <thead className="border-b border-hair bg-paper/5 text-left text-[10px] font-bold uppercase tracking-widest text-mist">
-              <tr>
-                <th className="px-5 py-4">Numéro</th>
-                <th className="px-5 py-4">Date</th>
-                <th className="px-5 py-4">Client (anonymisé)</th>
-                <th className="px-5 py-4 text-right">Montant HT</th>
-                <th className="px-5 py-4 text-center">Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr
-                  key={r.numero}
-                  className="border-b border-hair last:border-0 hover:bg-paper/5"
-                >
-                  <td className="px-5 py-4 font-mono text-xs text-brass">
-                    {r.numero}
-                  </td>
-                  <td className="px-5 py-4 text-mist">{r.dateEmission}</td>
-                  <td className="px-5 py-4 font-mono font-medium text-ink">
-                    {r.clientAlias}
-                  </td>
-                  <td className="px-5 py-4 text-right font-mono font-bold text-ink">
-                    {formatEUR(r.totalHT)}
-                  </td>
-                  <td className="px-5 py-4 text-center text-mist">
-                    {INVOICE_STATUS_LABELS[r.status] ?? r.status}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 }

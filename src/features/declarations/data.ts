@@ -21,6 +21,33 @@ export function extractYear(dateEmission: string, fallbackISO: string): number {
   return new Date(fallbackISO).getFullYear();
 }
 
+export interface DeclarationYearSummary {
+  year: number;
+  count: number;
+  totalHT: number;
+}
+
+/** Agrège les factures par année d'émission (pour l'historique des déclarations). */
+export async function loadDeclarationYears(): Promise<DeclarationYearSummary[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("invoices")
+    .select("date_emission, total_ht, created_at");
+
+  const rows = (data ?? []) as Pick<InvoiceRow, "date_emission" | "total_ht" | "created_at">[];
+  const map = new Map<number, { count: number; totalHT: number }>();
+  for (const r of rows) {
+    const y = extractYear(r.date_emission, r.created_at);
+    const agg = map.get(y) ?? { count: 0, totalHT: 0 };
+    agg.count += 1;
+    agg.totalHT += Number(r.total_ht);
+    map.set(y, agg);
+  }
+  return [...map.entries()]
+    .map(([year, a]) => ({ year, count: a.count, totalHT: a.totalHT }))
+    .sort((a, b) => b.year - a.year);
+}
+
 /**
  * Charge les factures de l'utilisateur courant pour l'année donnée,
  * triées par ancienneté (pour des pseudonymes stables côté anonymisation).

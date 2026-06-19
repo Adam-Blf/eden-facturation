@@ -57,10 +57,10 @@ export default async function ClientsPage({
         ) : (
           (clients ?? []).map((c) => (
             <div key={c.id} className="flex items-center justify-between border-b border-paper/10 px-6 py-4 last:border-0 hover:bg-paper/5 transition-colors">
-              <div>
-                <span className="font-bold text-ink">{c.nom}</span>
+              <Link href={`/app/clients/${c.id}`} className="group">
+                <span className="font-bold text-ink group-hover:text-brass">{c.nom}</span>
                 {c.email && <span className="ml-3 text-sm text-mist">{c.email}</span>}
-              </div>
+              </Link>
               <div className="flex items-center gap-4">
                 <span className="rounded-md bg-paper/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-brass">
                   {c.particulier ? "Particulier" : "Professionnel"}

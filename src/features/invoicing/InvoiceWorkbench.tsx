@@ -54,13 +54,17 @@ export default function InvoiceWorkbench({
   settings,
   clients,
   defaultNumero,
+  initialInvoice,
 }: {
   settings: BusinessSettings;
   clients: Client[];
   defaultNumero?: string;
+  initialInvoice?: Invoice;
 }) {
+  const isEdition = Boolean(initialInvoice?.id);
   const [invoice, setInvoice] = useState<Invoice>(
-    defaultNumero ? { ...DEFAULT_INVOICE, numero: defaultNumero } : DEFAULT_INVOICE,
+    initialInvoice ??
+      (defaultNumero ? { ...DEFAULT_INVOICE, numero: defaultNumero } : DEFAULT_INVOICE),
   );
   const [pending, startTransition] = useTransition();
   const [link, setLink] = useState<string | null>(null);
@@ -121,7 +125,7 @@ export default function InvoiceWorkbench({
         animate={{ opacity: 1, x: 0 }}
         className="max-h-screen overflow-y-auto px-6 py-8"
       >
-        <p className="code-badge mb-2 text-[10px]">NOUVELLE_FACTURE</p>
+        <p className="code-badge mb-2 text-[10px]">{isEdition ? "ÉDITION_FACTURE" : "NOUVELLE_FACTURE"}</p>
         <h1 className="mb-8 font-display text-3xl font-bold text-ink">Éditeur</h1>
 
         <section className="mb-8 grid grid-cols-2 gap-4">
