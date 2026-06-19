@@ -99,32 +99,26 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
 };
 
 export const DEFAULT_INVOICE: Invoice = {
-  numero: "2026-001",
+  numero: "",
   dateEmission: new Date().toLocaleDateString("fr-FR"),
-  datePrestation: "Juin / juillet 2026",
+  datePrestation: "",
   echeance: "30 jours à réception",
   reglement: "Virement bancaire",
   status: "draft",
   client: {
-    nom: "Nesma Nouar",
-    adresse1: "[Adresse du client]",
+    nom: "",
+    adresse1: "",
     adresse2: "",
-    email: "nesma.nouar@orange.fr",
+    email: "",
     particulier: true,
   },
   lines: [
     {
-      titre: "Production visuelle, lancement du single « On ne se taira plus »",
-      details: [
-        "Lyric video YouTube (16:9)",
-        "4 masters verticaux Reels / Shorts / TikTok (9:16)",
-        "Déclinaisons feed carré (1:1) et stories",
-        "Pochette animée + montage synchronisé des paroles",
-      ],
+      titre: "",
+      details: [],
       qte: 1,
-      pu: 132,
+      pu: 0,
     },
   ],
-  noteFamiliale:
-    "Tarif préférentiel accordé dans un cadre familial. Merci pour ta confiance, et belle sortie à Mia-Elya.",
+  noteFamiliale: "",
 };

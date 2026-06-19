@@ -29,34 +29,14 @@ export async function completeOnboarding(input: {
     }
   }
 
-  const { error: settingsError } = await supabase
-    .from("business_settings")
-    .update({
-      profile_type: profileType,
-      onboarded: true,
-      rna: profileType === "asso" ? (input.rna ?? "").trim().toUpperCase() : "",
-      asso_proof_url: profileType === "asso" ? input.assoProofUrl ?? null : null,
-      asso_verified: false,
-    })
-    .eq("user_id", user.id);
-  if (settingsError) return { error: settingsError.message };
-
-  // Association = gratuit illimité (loi 1901). Entreprise reste sur le palier
-  // gratuit (1 client) avec upsell vers les plans payants.
-  const free = profileType === "asso";
-  const { error: subError } = await supabase
-    .from("subscriptions")
-    .upsert(
-      {
-        user_id: user.id,
-        plan: profileType === "entreprise" ? "free" : profileType,
-        status: "active",
-        max_clients: free ? null : 1,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "user_id" },
-    );
-  if (subError) return { error: subError.message };
+  // Ecriture via RPC SECURITY DEFINER : le plan est decide cote serveur
+  // (le user ne peut pas se donner un plan illimite). Voir migration secure_subscriptions_onboarding.
+  const { error } = await supabase.rpc("set_onboarding", {
+    p_profile_type: profileType,
+    p_rna: profileType === "asso" ? (input.rna ?? "").trim().toUpperCase() : "",
+    p_proof_url: profileType === "asso" ? input.assoProofUrl ?? null : null,
+  });
+  if (error) return { error: error.message };
 
   revalidatePath("/app");
   redirect("/app");

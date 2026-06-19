@@ -11,11 +11,11 @@ export default function PdfPreview({ data }: { data: InvoiceDocumentData }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between border-b border-hair bg-paper px-4 py-3">
-        <span className="eyebrow text-xs text-moss">Aperçu</span>
+        <span className="eyebrow text-xs text-brass">Aperçu</span>
         <PDFDownloadLink
           document={<InvoiceDocument data={data} />}
           fileName={fileName}
-          className="inline-flex items-center gap-2 rounded-full bg-forest px-4 py-2 text-xs font-bold text-white transition hover:bg-moss"
+          className="inline-flex items-center gap-2 rounded-full bg-brass px-4 py-2 text-xs font-bold text-void transition hover:bg-tan"
         >
           {({ loading }) => (
             <>

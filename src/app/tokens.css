@@ -1,25 +1,15 @@
 :root {
-  /* Mood: Midnight Jazz Club - Smoky brass, saxophone light, deep ink */
-  
-  --bg: #010000; /* Pure Black requested */
-  --surface: #0a0a0a; /* Very dark surface */
-  --ink: #f5f5f5; /* Off-white for readability */
-  --primary: #d8b172; /* Precise Brass/Gold requested */
-  --accent: #b58d4c; /* Saturated golden-brown */
-  --muted: #666666; /* Muted grey */
-  
+  /* Identite Black & Brass, dark-only assume (pas d'adaptation au theme OS) */
+  color-scheme: dark;
+
+  --bg: #010000; /* noir */
+  --surface: #0f0e0c; /* surface tres sombre, legere teinte brass */
+  --ink: #f5f5f5; /* blanc casse, lisible */
+  --primary: #d8b172; /* brass */
+  --accent: #b58d4c; /* brass sature */
+  --muted: #8a8378; /* gris chaud (contraste AA sur fond noir) */
+
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #ffffff;
-    --surface: #f9f9f9;
-    --ink: #010000;
-    --primary: #d8b172;
-    --accent: #b58d4c;
-    --muted: #888888;
-  }
 }
