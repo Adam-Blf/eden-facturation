@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Space_Grotesk, DM_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import "./tokens.css";
@@ -18,9 +18,10 @@ const sans = Space_Grotesk({
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+// DM Mono : chiffres a zero plein (pas de point ni slash dans le 0)
+const mono = DM_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
