@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
-export type ProfileType = "entreprise" | "asso" | "particulier";
+export type ProfileType = "entreprise" | "asso";
 
 export async function completeOnboarding(input: {
   profileType: ProfileType;
@@ -41,9 +41,9 @@ export async function completeOnboarding(input: {
     .eq("user_id", user.id);
   if (settingsError) return { error: settingsError.message };
 
-  // Asso et particulier = gratuit illimité (asso 1901 / modèle HelloAsso).
-  // Entreprise reste sur le palier gratuit (1 client) avec upsell vers les plans payants.
-  const free = profileType === "asso" || profileType === "particulier";
+  // Association = gratuit illimité (loi 1901). Entreprise reste sur le palier
+  // gratuit (1 client) avec upsell vers les plans payants.
+  const free = profileType === "asso";
   const { error: subError } = await supabase
     .from("subscriptions")
     .upsert(

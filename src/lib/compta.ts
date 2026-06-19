@@ -37,6 +37,11 @@ export function netAfterCotisations(
   return round2(caEncaisse - estimatedCotisations(caEncaisse, settings));
 }
 
+// Micro-entreprise (auto-entrepreneur) : les plafonds micro ne concernent que ce statut.
+export function isMicroEntreprise(forme: string | undefined | null): boolean {
+  return /micro|auto.?entrepreneur/i.test(forme ?? "");
+}
+
 // Seuils 2025/2026 (à confirmer chaque LF), prestations de services
 export const SEUILS = {
   microServices: 77_700, // plafond micro BIC/BNC prestations de services

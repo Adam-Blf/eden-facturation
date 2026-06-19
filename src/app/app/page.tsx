@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Plus, TrendingUp, Receipt, Landmark, Wallet } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { settingsFromRow } from "@/lib/db";
-import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS } from "@/lib/compta";
+import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/lib/compta";
 import { formatEUR } from "@/lib/format";
 
 export default async function DashboardPage() {
@@ -26,6 +26,7 @@ export default async function DashboardPage() {
   const cotis = estimatedCotisations(caEncaisse, settings);
   const net = netAfterCotisations(caEncaisse, settings);
   const seuil = seuilStatus(caEncaisse);
+  const micro = isMicroEntreprise(settings.forme);
 
   const cards = [
     { label: `CA encaissé ${year}`, value: formatEUR(caEncaisse), icon: TrendingUp },
@@ -61,26 +62,28 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      <div className="card-brutal mt-8">
-        <div className="mb-2 flex items-center justify-between text-sm">
-          <span className="font-bold text-ink">Plafond micro-entreprise</span>
-          <span className="font-mono text-mist">
-            {formatEUR(caEncaisse)} / {formatEUR(SEUILS.microServices)}
-          </span>
+      {micro && (
+        <div className="card-brutal mt-8">
+          <div className="mb-2 flex items-center justify-between text-sm">
+            <span className="font-bold text-ink">Plafond micro-entreprise</span>
+            <span className="font-mono text-mist">
+              {formatEUR(caEncaisse)} / {formatEUR(SEUILS.microServices)}
+            </span>
+          </div>
+          <div className="h-3 w-full overflow-hidden rounded-full bg-void border border-hair">
+            <div
+              className="h-full rounded-full bg-brass"
+              style={{ width: `${Math.min(seuil.pctMicro, 100)}%` }}
+            />
+          </div>
+          {seuil.alerteTva && (
+            <p className="mt-3 text-sm text-[#b45309]">
+              ⚠️ Tu approches le seuil de franchise en base de TVA ({formatEUR(SEUILS.franchiseTvaBase)}).
+              Au-delà, tu devras facturer la TVA.
+            </p>
+          )}
         </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-void border border-hair">
-          <div
-            className="h-full rounded-full bg-brass"
-            style={{ width: `${Math.min(seuil.pctMicro, 100)}%` }}
-          />
-        </div>
-        {seuil.alerteTva && (
-          <p className="mt-3 text-sm text-[#b45309]">
-            ⚠️ Tu approches le seuil de franchise en base de TVA ({formatEUR(SEUILS.franchiseTvaBase)}).
-            Au-delà, tu devras facturer la TVA.
-          </p>
-        )}
-      </div>
+      )}
     </div>
   );
 }

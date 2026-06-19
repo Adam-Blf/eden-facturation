@@ -3,7 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Building2, Users, HeartHandshake, ArrowRight, Loader2, Upload, Check } from "lucide-react";
+import { Building2, Users, ArrowRight, Loader2, Upload, Check } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { completeOnboarding, type ProfileType } from "@/app/bienvenue/actions";
 
@@ -28,13 +28,6 @@ const CHOICES: {
     icon: Users,
     title: "Association loi 1901",
     desc: "Gratuit pour les associations déclarées. Un justificatif est demandé (numéro RNA + récépissé).",
-    badge: "Gratuit",
-  },
-  {
-    key: "particulier",
-    icon: HeartHandshake,
-    title: "Particulier",
-    desc: "Tu factures ou collectes ponctuellement, sans structure. Gratuit. Une contribution est proposée au paiement, toujours facultative et jamais cochée par défaut.",
     badge: "Gratuit",
   },
 ];
@@ -94,7 +87,7 @@ export default function OnboardingFlow({ userId }: { userId: string }) {
           <p className="mt-2 text-[#9a9488]">Dis-nous qui tu es, on adapte ton espace.</p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {CHOICES.map((c, i) => {
             const active = choice === c.key;
             return (
