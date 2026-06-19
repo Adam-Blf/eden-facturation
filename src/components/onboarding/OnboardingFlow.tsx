@@ -34,7 +34,7 @@ const CHOICES: {
     key: "particulier",
     icon: HeartHandshake,
     title: "Particulier",
-    desc: "Tu factures ou collectes ponctuellement, sans structure. Gratuit, soutenu par une contribution libre au paiement, façon HelloAsso.",
+    desc: "Tu factures ou collectes ponctuellement, sans structure. Gratuit. Une contribution est proposée au paiement, toujours facultative et jamais cochée par défaut.",
     badge: "Gratuit",
   },
 ];
