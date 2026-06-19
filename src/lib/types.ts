@@ -11,8 +11,8 @@ export type InvoiceStatus =
 
 export interface BusinessSettings {
   marque: string; // EDEN
-  tagline: string; // Studio créatif · production web & digital
-  spine: string; // CRÉATIF · WEB · DIGITAL
+  tagline: string; // Studio créatif, production web & digital
+  spine: string; // CRÉATIF / WEB / DIGITAL
   nom: string; // Adam Beloucif
   forme: string; // Entrepreneur Individuel (EI)
   adresse1: string;
@@ -101,7 +101,7 @@ export const DEFAULT_SETTINGS: BusinessSettings = {
 export const DEFAULT_INVOICE: Invoice = {
   numero: "2026-001",
   dateEmission: new Date().toLocaleDateString("fr-FR"),
-  datePrestation: "Juin – juillet 2026",
+  datePrestation: "Juin / juillet 2026",
   echeance: "30 jours à réception",
   reglement: "Virement bancaire",
   status: "draft",
@@ -114,7 +114,7 @@ export const DEFAULT_INVOICE: Invoice = {
   },
   lines: [
     {
-      titre: "Production visuelle · lancement du single « On ne se taira plus »",
+      titre: "Production visuelle, lancement du single « On ne se taira plus »",
       details: [
         "Lyric video YouTube (16:9)",
         "4 masters verticaux Reels / Shorts / TikTok (9:16)",
@@ -126,5 +126,5 @@ export const DEFAULT_INVOICE: Invoice = {
     },
   ],
   noteFamiliale:
-    "Tarif préférentiel accordé dans un cadre familial. Merci pour ta confiance — et belle sortie à Mia-Elya.",
+    "Tarif préférentiel accordé dans un cadre familial. Merci pour ta confiance, et belle sortie à Mia-Elya.",
 };

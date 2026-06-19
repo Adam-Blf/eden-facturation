@@ -117,7 +117,7 @@ export default function InvoiceEditor() {
           <Field label="Nom" value={invoice.client.nom} onChange={(v) => setClient("nom", v)} />
           <Field label="Email" value={invoice.client.email} onChange={(v) => setClient("email", v)} />
           <Field label="Adresse" value={invoice.client.adresse1} onChange={(v) => setClient("adresse1", v)} />
-          <Field label="Code postal · ville" value={invoice.client.adresse2} onChange={(v) => setClient("adresse2", v)} />
+          <Field label="Code postal, ville" value={invoice.client.adresse2} onChange={(v) => setClient("adresse2", v)} />
           <label className="col-span-2 flex items-center gap-2 text-sm text-ink">
             <input
               type="checkbox"
@@ -183,7 +183,7 @@ export default function InvoiceEditor() {
           <Field label="Forme juridique" value={settings.forme} onChange={(v) => setS("forme", v)} />
           <Field label="Téléphone" value={settings.tel} onChange={(v) => setS("tel", v)} />
           <Field label="Adresse" value={settings.adresse1} onChange={(v) => setS("adresse1", v)} />
-          <Field label="Code postal · ville" value={settings.adresse2} onChange={(v) => setS("adresse2", v)} />
+          <Field label="Code postal, ville" value={settings.adresse2} onChange={(v) => setS("adresse2", v)} />
           <Field label="Email" value={settings.email} onChange={(v) => setS("email", v)} />
           <Field label="SIREN" value={settings.siren} onChange={(v) => setS("siren", v)} />
           <Field label="Mention RCS" value={settings.rcs} onChange={(v) => setS("rcs", v)} />

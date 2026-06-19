@@ -32,7 +32,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "404 Monkey · Facturation sans bug",
+  title: "404 Monkey, facturation sans bug",
   description: "La facturation pour toutes les entreprises, de l'auto-entrepreneur à la SAS. Factures à ta charte graphique, suivi compta, acceptation client. Par 404 Monkey.",
   keywords: ["facturation", "devis", "freelance", "comptabilité", "entreprise", "404 monkey"],
   authors: [{ name: "Adam Beloucif" }],
@@ -40,13 +40,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "fr_FR",
     url: "https://facturation.404monkey.com",
-    title: "404 Monkey · Facturation sans bug",
+    title: "404 Monkey, facturation sans bug",
     description: "La facturation pour toutes les entreprises, de l'auto-entrepreneur à la SAS.",
     siteName: "404 Monkey",
   },
   twitter: {
     card: "summary_large_image",
-    title: "404 Monkey · Facturation",
+    title: "404 Monkey, facturation",
     description: "Factures à ta charte graphique, suivi compta, acceptation client.",
   },
 };

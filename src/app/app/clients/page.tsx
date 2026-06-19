@@ -39,7 +39,7 @@ export default async function ClientsPage({
           <input name="nom" required placeholder="Nom" className="rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass placeholder:text-mist/50" />
           <input name="email" type="email" placeholder="Email" className="rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass placeholder:text-mist/50" />
           <input name="adresse1" placeholder="Adresse" className="rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass placeholder:text-mist/50" />
-          <input name="adresse2" placeholder="Code postal · ville" className="rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass placeholder:text-mist/50" />
+          <input name="adresse2" placeholder="Code postal, ville" className="rounded-md border border-paper/10 bg-void px-3 py-2 text-sm text-ink outline-none transition focus:border-brass placeholder:text-mist/50" />
         </div>
         <div className="mt-4 flex items-center justify-between border-t border-paper/10 pt-4">
           <label className="flex items-center gap-2 text-sm text-ink">

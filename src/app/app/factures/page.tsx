@@ -60,7 +60,7 @@ export default async function FacturesPage() {
               {invoices.map((inv) => (
                 <tr key={inv.id} className="border-b border-paper/10 last:border-0 hover:bg-paper/5 transition-colors">
                   <td className="px-5 py-4 font-mono text-xs text-brass">{inv.numero}</td>
-                  <td className="px-5 py-4 font-medium text-ink">{inv.snapshot?.invoice?.client?.nom ?? "—"}</td>
+                  <td className="px-5 py-4 font-medium text-ink">{inv.snapshot?.invoice?.client?.nom ?? "Sans client"}</td>
                   <td className="px-5 py-4 text-mist">{inv.date_emission}</td>
                   <td className="px-5 py-4 text-right font-mono text-ink font-bold">{formatEUR(Number(inv.total_ht))}</td>
                   <td className="px-5 py-4 text-center">

@@ -112,7 +112,7 @@ export function InvoiceDocument({ data }: { data: InvoiceDocumentData }) {
   }
 
   return (
-    <Document title={`Facture ${inv.numero} — ${st.marque}`} author={st.nom}>
+    <Document title={`Facture ${inv.numero}, ${st.marque}`} author={st.nom}>
       <Page size="A4" style={s.page}>
         <View style={s.spine} fixed />
         <View style={s.spineRule} fixed />
@@ -136,9 +136,9 @@ export function InvoiceDocument({ data }: { data: InvoiceDocumentData }) {
           <View style={s.col}>
             <Text style={s.eyebrow}>Émetteur</Text>
             {st.logoUrl ? <Image style={s.logo} src={st.logoUrl} /> : null}
-            <Text style={s.partyName}>{st.marque} — {st.nom}</Text>
+            <Text style={s.partyName}>{st.marque}, {st.nom}</Text>
             {st.tagline ? <Text style={s.tagline}>{st.tagline}</Text> : null}
-            {[st.forme, st.adresse1, st.adresse2, st.tel, st.email, `SIREN · ${st.siren}`, st.rcs]
+            {[st.forme, st.adresse1, st.adresse2, st.tel, st.email, `SIREN ${st.siren}`, st.rcs]
               .filter(Boolean)
               .map((l, i) => <Text style={s.partyLine} key={i}>{l}</Text>)}
           </View>
@@ -162,7 +162,7 @@ export function InvoiceDocument({ data }: { data: InvoiceDocumentData }) {
               </View>
               {line.details.filter(Boolean).map((d, j) => (
                 <View key={j} style={s.detail}>
-                  <Text style={s.detailDot}>·</Text>
+                  <Text style={s.detailDot}>-</Text>
                   <Text style={s.detailText}>{d}</Text>
                 </View>
               ))}
@@ -187,7 +187,7 @@ export function InvoiceDocument({ data }: { data: InvoiceDocumentData }) {
             </View>
             <View style={s.totalLine}>
               <Text style={s.totalLabel}>TVA (0 %)</Text>
-              <Text style={s.totalVal}>—</Text>
+              <Text style={s.totalVal}>-</Text>
             </View>
             <View style={s.netBlock}>
               <Text style={s.netLabel}>{spaced("NET À PAYER")}</Text>

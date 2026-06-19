@@ -4,7 +4,7 @@ let registered = false;
 
 /**
  * Enregistre les polices OFL (servies depuis /public/fonts) pour le rendu PDF.
- * Spectral (display serif) · PT Sans (corps) · IBM Plex Mono (data).
+ * Spectral (display serif), PT Sans (corps), IBM Plex Mono (data).
  */
 export function registerPdfFonts() {
   if (registered) return;

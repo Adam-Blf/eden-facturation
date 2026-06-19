@@ -37,10 +37,10 @@ export function netAfterCotisations(
   return round2(caEncaisse - estimatedCotisations(caEncaisse, settings));
 }
 
-// Seuils 2025/2026 (à confirmer chaque LF) — prestations de services
+// Seuils 2025/2026 (à confirmer chaque LF), prestations de services
 export const SEUILS = {
   microServices: 77_700, // plafond micro BIC/BNC prestations de services
-  franchiseTvaBase: 37_500, // franchise en base TVA (services) — seuil de base
+  franchiseTvaBase: 37_500, // franchise en base TVA (services), seuil de base
   franchiseTvaMajore: 41_250, // seuil majoré
 };
 
