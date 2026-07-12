@@ -1,4 +1,4 @@
-# EDEN · Facturation & compta
+# EDEN - Facturation & compta
 
 <!-- adam-badges:start -->
 [![commits](https://img.shields.io/github/commit-activity/t/Adam-Blf/eden-facturation?color=001329&label=commits&style=flat-square)](https://github.com/Adam-Blf/eden-facturation/commits)
@@ -17,10 +17,10 @@ tes cotisations URSSAF et tes seuils micro. Conforme aux mentions légales FR
 
 ### Livré (v0.1)
 - ✅ Éditeur de facture avec **aperçu PDF live** (même code React rend l'écran et le PDF)
-- ✅ Design **EDEN** soigné · polices OFL (Spectral / PT Sans / IBM Plex Mono)
+- ✅ Design **EDEN** soigné - polices OFL (Spectral / PT Sans / IBM Plex Mono)
 - ✅ Numéro de facture, infos émetteur/client, lignes multiples éditables
 - ✅ Export PDF en un clic
-- ✅ Bandeau compta live : Total HT · cotisations URSSAF estimées · net estimé
+- ✅ Bandeau compta live : Total HT - cotisations URSSAF estimées - net estimé
 - ✅ Mentions légales auto (EI, 293 B, pénalités L441-10, médiateur conso si particulier)
 - ✅ Schéma Supabase multi-tenant (RLS) prêt
 
@@ -35,9 +35,9 @@ tes cotisations URSSAF et tes seuils micro. Conforme aux mentions légales FR
 
 ## 🧱 Stack
 
-Next.js 16 (App Router, Turbopack) · TypeScript · Tailwind CSS v4 ·
-framer-motion · `@react-pdf/renderer` · Supabase (Postgres + Auth + RLS) ·
-Stripe · lucide-react.
+Next.js 16 (App Router, Turbopack) - TypeScript - Tailwind CSS v4 -
+framer-motion - `@react-pdf/renderer` - Supabase (Postgres + Auth + RLS) -
+Stripe - lucide-react.
 
 ## 🏗️ Architecture
 
@@ -94,4 +94,4 @@ de retard, et médiateur de la consommation pour les clients particuliers.
 
 ## Licence
 
-MIT — voir [LICENSE](LICENSE).
+MIT - voir [LICENSE](LICENSE).
