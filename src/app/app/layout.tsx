@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { LogOut, Settings } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import SidebarNav from "@/components/app/SidebarNav";
-import { BrandMark } from "@/components/BrandMark";
+import { createClient } from "@/shared/supabase/server";
+import SidebarNav from "@/shared/ui/SidebarNav";
+import { BrandMark } from "@/shared/ui/BrandMark";
 
 export default async function AppLayout({
   children,

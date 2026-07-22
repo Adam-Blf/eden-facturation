@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
-import OnboardingFlow from "@/components/onboarding/OnboardingFlow";
+import { createClient } from "@/shared/supabase/server";
+import OnboardingFlow from "@/features/onboarding/OnboardingFlow";
 
 export const metadata = { title: "Bienvenue sur 404 Monkey" };
 

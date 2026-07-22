@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/shared/supabase/server";
 
 export const metadata = {
   title: "Analytics Admin | 404 Monkey",

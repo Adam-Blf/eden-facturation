@@ -1,8 +1,9 @@
-import { createClient } from "@/lib/supabase/server";
-import { formatEUR } from "@/lib/format";
-import { INVOICE_STATUS_LABELS } from "@/lib/db";
-import type { BusinessSettings, Invoice } from "@/lib/types";
-import PublicInvoiceAccept from "@/components/invoice/PublicInvoiceAccept";
+import { createClient } from "@/shared/supabase/server";
+import { formatEUR } from "@/shared/format";
+import { INVOICE_STATUS_LABELS } from "@/features/invoicing/status";
+import type { Invoice } from "@/features/invoicing/types";
+import type { BusinessSettings } from "@/features/branding/types";
+import PublicInvoiceAccept from "@/features/invoicing/PublicInvoiceAccept";
 
 export default async function PublicInvoicePage({
   params,

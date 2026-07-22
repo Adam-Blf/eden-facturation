@@ -1,8 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
-import { settingsFromRow } from "@/lib/db";
-import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/lib/compta";
-import { formatEUR } from "@/lib/format";
-import { addPayment, addExpense } from "./actions";
+import Link from "next/link";
+import { ShieldCheck } from "lucide-react";
+import { createClient } from "@/shared/supabase/server";
+import { settingsFromRow } from "@/features/branding/settings-mapping";
+import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/features/accounting/compta";
+import { formatEUR } from "@/shared/format";
+import { addPayment, addExpense } from "@/features/accounting/actions";
 
 export default async function ComptaPage() {
   const supabase = await createClient();
@@ -36,8 +38,18 @@ export default async function ComptaPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
-      <p className="eyebrow text-xs text-brass">Comptabilité</p>
-      <h1 className="mb-8 font-display text-4xl font-bold text-ink">Ma compta {year}</h1>
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow text-xs text-brass">Comptabilité</p>
+          <h1 className="font-display text-4xl font-bold text-ink">Ma compta {year}</h1>
+        </div>
+        <Link
+          href="/app/compta/declarations"
+          className="inline-flex items-center gap-2 rounded-full border border-hair bg-paper px-4 py-2 text-sm font-bold text-ink hover:border-brass"
+        >
+          <ShieldCheck size={16} className="text-brass" /> Déclarations (anonymisé)
+        </Link>
+      </div>
 
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {stats.map(([label, value]) => (

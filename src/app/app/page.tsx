@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Plus, TrendingUp, Receipt, Landmark, Wallet } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
-import { settingsFromRow } from "@/lib/db";
-import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/lib/compta";
-import { formatEUR } from "@/lib/format";
+import { createClient } from "@/shared/supabase/server";
+import { settingsFromRow } from "@/features/branding/settings-mapping";
+import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/features/accounting/compta";
+import { formatEUR } from "@/shared/format";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
