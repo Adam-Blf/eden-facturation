@@ -1,5 +1,7 @@
 # EDEN - Facturation & compta
 
+[![version](https://img.shields.io/badge/version-0.1.0-000091?style=flat-square)](https://github.com/Adam-Blf/eden-facturation/releases)
+
 <!-- adam-badges:start -->
 [![commits](https://img.shields.io/github/commit-activity/t/Adam-Blf/eden-facturation?color=001329&label=commits&style=flat-square)](https://github.com/Adam-Blf/eden-facturation/commits)
 [![visites](https://hits.sh/github.com/Adam-Blf/eden-facturation.svg?style=flat-square&label=visites&color=001329)](https://hits.sh/github.com/Adam-Blf/eden-facturation/)
