@@ -1,11 +1,4 @@
-
-[functions.send-invoice]
-enabled = true
-verify_jwt = false
-import_map = "./functions/send-invoice/deno.json"
-# Uncomment to specify a custom file path to the entrypoint.
-# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
-entrypoint = "./functions/send-invoice/index.ts"
-# Specifies static files to be bundled with the function. Supports glob patterns.
-# For example, if you want to serve static HTML pages in your function:
-# static_files = [ "./functions/send-invoice/*.html" ]
+# supabase/config.toml
+# The send-invoice edge function has been removed.
+# Email delivery is handled by the authenticated Next.js server action
+# in src/app/app/factures/actions.ts (sendInvoiceEmail).

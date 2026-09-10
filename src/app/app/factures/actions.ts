@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { invoiceTotalHT } from "@/lib/compta";
 import type { Invoice, BusinessSettings } from "@/lib/types";
+import { sendInvoiceNotification } from "@/lib/email/resend";
+import { validateClientEmail, formatInvoiceName, formatInvoiceTotal, formatEmailDate } from "@/lib/email/utils";
 
 function invoiceBase(invoice: Invoice, userId: string, status: string) {
   return {
@@ -93,5 +95,116 @@ export async function issueInvoice(invoice: Invoice, settings: BusinessSettings)
     .single();
 
   revalidatePath("/app/factures");
-  return { id, token: tok?.public_token as string };
+  return { id, token: tok?.public_token as string, clientEmail: invoice.client?.email ?? "" };
+}
+
+// ---------------------------------------------------------------------------
+// sendInvoiceEmail - server action: issued -> sent
+// ---------------------------------------------------------------------------
+
+interface SendEmailResult {
+  error?: string;
+  sentAt?: string;
+}
+
+export async function sendInvoiceEmail(invoiceId: string): Promise<SendEmailResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Non authentifié" };
+
+  // Fetch invoice row (RLS ensures ownership)
+  const { data: row, error: fetchError } = await supabase
+    .from("invoices")
+    .select("id, user_id, status, sent_at, public_token, total_ht, snapshot, numero")
+    .eq("id", invoiceId)
+    .single();
+
+  if (fetchError || !row) return { error: "Facture introuvable" };
+
+  // Fast-path status guards (non-authoritative; the atomic claim below is the true guard)
+  if (row.status === "sent") {
+    return { error: "Cette facture a déjà été envoyée" };
+  }
+  if (row.status !== "issued") {
+    return { error: "Veuillez valider la facture d'abord" };
+  }
+
+  // Extract data from snapshot (frozen at issue time - authoritative billing document).
+  // The recipient address comes from the snapshot so it matches the document we are delivering.
+  const snapshot = row.snapshot as {
+    settings?: BusinessSettings;
+    invoice?: Invoice;
+  } | null;
+
+  const invoiceSnap = snapshot?.invoice;
+  const settingsSnap = snapshot?.settings;
+
+  const clientEmail = invoiceSnap?.client?.email ?? "";
+  if (!validateClientEmail(clientEmail)) {
+    return { error: "Adresse email du client manquante ou invalide" };
+  }
+
+  const clientName = invoiceSnap?.client?.nom ?? "Client";
+  const numero = invoiceSnap?.numero ?? (row.numero as string);
+  const dateEmission = formatEmailDate(invoiceSnap?.dateEmission ?? "");
+  const totalAmount = Number(row.total_ht);
+  const total = formatInvoiceTotal(totalAmount);
+  const invoiceName = formatInvoiceName(numero);
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+  const publicLink = `${appUrl}/facture/${row.public_token}`;
+
+  const sentAt = new Date().toISOString();
+
+  // Atomic claim: transition issued -> sent BEFORE sending.
+  // The conditional .eq('status', 'issued') ensures exactly one concurrent caller
+  // wins the race; all others receive an empty `claimed` array and bail out.
+  const { data: claimed } = await supabase
+    .from("invoices")
+    .update({ status: "sent", sent_at: sentAt })
+    .eq("id", invoiceId)
+    .eq("status", "issued")
+    .select("id");
+
+  if (!claimed?.length) {
+    return { error: "Cette facture a déjà été envoyée" };
+  }
+
+  // Send via Resend (after the atomic claim is secured)
+  const sendResult = await sendInvoiceNotification({
+    clientEmail,
+    invoiceName,
+    clientName,
+    publicLink,
+    senderName: settingsSnap?.nom ?? "",
+    senderEmail: settingsSnap?.email ?? "",
+    senderPhone: settingsSnap?.tel ?? undefined,
+    total,
+    dateEmission,
+    businessColor: settingsSnap?.colorPrimary ?? "#0b0b0c",
+  });
+
+  if (!sendResult.success) {
+    // Revert the claim so the invoice remains retriable (no email was delivered).
+    await supabase
+      .from("invoices")
+      .update({ status: "issued" })
+      .eq("id", invoiceId);
+    return { error: sendResult.error ?? "Échec d'envoi. Réessayez ultérieurement." };
+  }
+
+  // Audit log (non-blocking: failure here must not roll back an already-delivered email)
+  await supabase.from("email_logs").insert({
+    user_id: user.id,
+    invoice_id: invoiceId,
+    recipient_email: clientEmail,
+    subject: `${invoiceName} - ${settingsSnap?.marque ?? "Facture"}`,
+    sent_at: sentAt,
+    status: "sent",
+  });
+
+  revalidatePath("/app/factures");
+  return { sentAt };
 }

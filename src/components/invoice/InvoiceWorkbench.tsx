@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { Plus, Trash2, Save, Send, Loader2, Copy, Check } from "lucide-react";
+import { Plus, Trash2, Save, Send, Loader2, Copy, Check, Mail } from "lucide-react";
 import { toast } from "sonner";
 import {
   DEFAULT_INVOICE,
@@ -14,7 +14,7 @@ import {
 } from "@/lib/types";
 import { invoiceTotalHT } from "@/lib/compta";
 import { formatEUR } from "@/lib/format";
-import { saveInvoice, issueInvoice } from "@/app/app/factures/actions";
+import { saveInvoice, issueInvoice, sendInvoiceEmail } from "@/app/app/factures/actions";
 
 const PdfPreview = dynamic(() => import("@/components/PdfPreview"), {
   ssr: false,
@@ -69,6 +69,10 @@ export default function InvoiceWorkbench({
   const [pending, startTransition] = useTransition();
   const [link, setLink] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  // Captures the recipient email frozen at issue time; prevents UI/server divergence
+  // if the user edits the client email field after clicking Valider.
+  const [issuedEmail, setIssuedEmail] = useState<string | null>(null);
 
   const set = <K extends keyof Invoice>(k: K, v: Invoice[K]) => setInvoice((p) => ({ ...p, [k]: v }));
   const setClient = (k: keyof Client, v: string | boolean) =>
@@ -106,6 +110,9 @@ export default function InvoiceWorkbench({
       else if (res.token) {
         setInvoice((p) => ({ ...p, id: res.id, status: "issued" }));
         setLink(`${window.location.origin}/facture/${res.token}`);
+        // Freeze the authoritative recipient address at issue time so the send
+        // button gate stays consistent with what the server action will use.
+        setIssuedEmail(res.clientEmail || null);
         toast.success("Facture validée. Lien client généré.");
       }
     });
@@ -116,6 +123,20 @@ export default function InvoiceWorkbench({
     navigator.clipboard.writeText(link);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
+  }
+
+  function onSendEmail() {
+    if (!invoice.id) return;
+    startTransition(async () => {
+      const res = await sendInvoiceEmail(invoice.id!);
+      if (res.error) {
+        toast.error(res.error);
+      } else {
+        setEmailSent(true);
+        setInvoice((p) => ({ ...p, status: "sent" }));
+        toast.success("Email envoyé avec succès.");
+      }
+    });
   }
 
   return (
@@ -223,6 +244,56 @@ export default function InvoiceWorkbench({
               </button>
             </div>
           </div>
+        )}
+
+        {/* Send email section - visible once the invoice is issued, before first send.
+            Gate uses invoice.id (not link) so it survives if link state is lost,
+            and uses issuedEmail (frozen at issue time) to match the server action’s
+            recipient source rather than the live editable field. */}
+        {invoice.id && invoice.status === "issued" && !emailSent && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 rounded-md border border-paper/10 bg-paper/5 p-4"
+          >
+            <p className="mb-3 text-sm font-bold text-ink">Envoyer au client</p>
+            {!issuedEmail && (
+              <p className="mb-3 text-xs text-mist">
+                Ajoutez une adresse email client pour activer l’envoi.
+              </p>
+            )}
+            {issuedEmail && (
+              <p className="mb-3 text-xs text-mist">
+                Destinataire : <span className="font-mono text-ink">{issuedEmail}</span>
+              </p>
+            )}
+            <button
+              onClick={onSendEmail}
+              disabled={pending || !issuedEmail}
+              className="btn-primary inline-flex w-full items-center justify-center gap-2"
+            >
+              {pending ? (
+                <Loader2 size={15} className="animate-spin" />
+              ) : (
+                <Mail size={15} />
+              )}
+              Envoyer au client
+            </button>
+          </motion.div>
+        )}
+
+        {/* Confirmation after successful send */}
+        {emailSent && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 border-l-2 border-green-500 bg-green-500/10 p-4"
+          >
+            <p className="flex items-center gap-2 text-sm font-bold text-ink">
+              <Check size={15} className="text-green-500" />
+              Email envoyé au client.
+            </p>
+          </motion.div>
         )}
 
         <div className="flex gap-4">
