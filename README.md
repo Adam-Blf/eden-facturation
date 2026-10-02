@@ -52,6 +52,17 @@ graph TD;
   Deno -->|Envoi d'e-mails| Resend[Resend API]
   Vercel -->|Paiements & Abonnements| Stripe[Stripe API]
   Vercel -->|Domaine personnalisé| OVH[OVH DNS]
+
+  classDef c0 fill:#2563eb,stroke:#1e3a8a,stroke-width:2px,color:#ffffff
+  classDef c1 fill:#7c3aed,stroke:#4c1d95,stroke-width:2px,color:#ffffff
+  classDef c2 fill:#0891b2,stroke:#164e63,stroke-width:2px,color:#ffffff
+  classDef c3 fill:#16a34a,stroke:#14532d,stroke-width:2px,color:#ffffff
+  classDef c4 fill:#d97706,stroke:#78350f,stroke-width:2px,color:#ffffff
+  class User c0
+  class Vercel c1
+  class Supabase,Stripe,OVH c2
+  class PostgreSQL,Deno c3
+  class Resend c4
 ```
 
 ## 🚀 Démarrage
