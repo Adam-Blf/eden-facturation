@@ -21,7 +21,7 @@ export default async function AbonnementPage() {
   const currentPlan = sub?.plan ?? "free";
   const maxClients = sub?.max_clients ?? 1;
   const used = clientCount ?? 0;
-  const stripeEnabled = Boolean(process.env.STRIPE_SECRET_KEY);
+  const stripeEnabled = Boolean(process.env.EDEN_STRIPE_SECRET_KEY);
 
   return (
     <div className="mx-auto max-w-5xl px-2 py-4">
