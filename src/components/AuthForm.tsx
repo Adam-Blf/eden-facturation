@@ -54,7 +54,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           email,
           password,
           options: {
-            emailRedirectTo: (process.env.NEXT_PUBLIC_APP_URL || location.origin) + "/auth/callback",
+            emailRedirectTo: (process.env.NEXT_PUBLIC_EDEN_APP_URL || location.origin) + "/auth/callback",
             data: { 
               first_name: firstName,
               last_name: lastName,

@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented here. Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Project env keys now carry the `EDEN` prefix (`NEXT_PUBLIC_EDEN_APP_URL`,
+  `NEXT_PUBLIC_EDEN_SUPABASE_URL`, `NEXT_PUBLIC_EDEN_SUPABASE_ANON_KEY`,
+  `EDEN_SUPABASE_SERVICE_ROLE_KEY`, `EDEN_STRIPE_SECRET_KEY`,
+  `EDEN_STRIPE_WEBHOOK_SECRET`). New names added on Vercel next to the old ones,
+  kept for rollback.
+- `next.config.ts` loads `~/.secrets/projets.env` in local dev when present
+  (`CENTRAL_ENV_FILE` overrides the path), never overriding a set variable.
+
+### Added
+
+- `.env.example` (the README already pointed to it).
+
 ## [0.1.0] - 2026-10-07
 
 First tagged release. Latest changes:

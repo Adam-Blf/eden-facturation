@@ -17,7 +17,7 @@ function planFromPriceId(priceId: string | undefined | null): PlanInfo {
 
 export async function POST(req: Request) {
   const stripe = getStripe();
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secret = process.env.EDEN_STRIPE_WEBHOOK_SECRET;
   if (!stripe || !secret) return NextResponse.json({ skipped: true });
 
   const sig = req.headers.get("stripe-signature");
@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "invalid signature" }, { status: 400 });
   }
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.NEXT_PUBLIC_EDEN_SUPABASE_URL;
+  const serviceKey = process.env.EDEN_SUPABASE_SERVICE_ROLE_KEY;
   const admin = url && serviceKey ? createClient(url, serviceKey) : null;
 
   // Sans cle service role, on ne peut pas ecrire en DB : on renvoie une erreur

@@ -73,6 +73,14 @@ cp .env.example .env.local   # remplir Supabase + Stripe
 npm run dev                  # http://localhost:3000
 ```
 
+Variables d'environnement : les clés propres au projet portent le préfixe `EDEN`
+(`NEXT_PUBLIC_EDEN_*` côté navigateur, `EDEN_*` côté serveur), pour rester
+uniques dans le fichier central de secrets. En local, `next.config.ts` charge
+`~/.secrets/projets.env` s'il existe (chemin surchargeable par `CENTRAL_ENV_FILE`)
+via `process.loadEnvFile` de Node 20.12+, sans écraser une variable déjà posée.
+Sur Vercel le fichier est absent et le chargeur ne fait rien. Liste des clés :
+`.env.example`.
+
 Base de données :
 
 ```bash
