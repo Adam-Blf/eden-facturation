@@ -34,14 +34,14 @@ export default function Home() {
             href="/signup"
             className="group inline-flex items-center gap-2 rounded-full bg-brass px-6 py-3 font-bold text-void transition hover:bg-tan"
           >
-            Créer mon compte
+            Facturer gratuitement
             <ArrowRight size={18} className="transition group-hover:translate-x-0.5" />
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 rounded-full border border-bone/25 px-6 py-3 font-bold text-bone transition hover:border-brass hover:text-brass"
+            className="inline-flex items-center gap-2 rounded-full border border-bone/40 px-6 py-3 font-bold text-bone transition hover:border-brass hover:text-brass"
           >
-            Se connecter
+            Retrouver mes factures
           </Link>
         </div>
       </section>

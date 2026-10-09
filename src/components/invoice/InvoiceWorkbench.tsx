@@ -199,7 +199,7 @@ export default function InvoiceWorkbench({
                   />
                 </label>
                 {invoice.lines.length > 1 && (
-                  <button onClick={() => removeLine(i)} className="absolute top-4 right-4 text-mist hover:text-[#b3261e]">
+                  <button onClick={() => removeLine(i)} aria-label="Supprimer cette ligne" className="absolute top-4 right-4 text-mist hover:text-red-400">
                     <Trash2 size={16} />
                   </button>
                 )}
@@ -218,7 +218,7 @@ export default function InvoiceWorkbench({
             <p className="mb-2 text-sm font-bold text-ink">Lien d’acceptation client</p>
             <div className="flex items-center gap-2">
               <input readOnly value={link} className="flex-1 rounded-md border border-brass/20 bg-void px-3 py-2 font-mono text-xs text-ink" />
-              <button onClick={copyLink} className="inline-flex items-center gap-1 rounded-md bg-brass px-3 py-2 text-xs font-bold text-void hover:bg-brass/80">
+              <button onClick={copyLink} aria-label="Copier le lien d’acceptation" className="inline-flex items-center gap-1 rounded-md bg-brass px-3 py-2 text-xs font-bold text-void hover:bg-brass/80">
                 {copied ? <Check size={14} /> : <Copy size={14} />}
               </button>
             </div>
@@ -230,7 +230,7 @@ export default function InvoiceWorkbench({
             {pending ? <Loader size={15} className="animate-spin" /> : <Floppy2 size={15} />} Enregistrer
           </button>
           <button onClick={onIssue} disabled={pending} className="btn-primary w-full">
-            {pending ? <Loader size={15} className="animate-spin" /> : <Send size={15} />} Valider & Lien
+            {pending ? <Loader size={15} className="animate-spin" /> : <Send size={15} />} Émettre et obtenir le lien
           </button>
         </div>
       </motion.div>
