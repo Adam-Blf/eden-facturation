@@ -4,8 +4,12 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-08
+
 ### Changed
 
+- All icons migrated from `lucide-react` to Reicon (`reicon-react`), Outline weight,
+  `optimizePackageImports` enabled. No custom glyph or brand logo was needed.
 - Project env keys now carry the `EDEN` prefix (`NEXT_PUBLIC_EDEN_APP_URL`,
   `NEXT_PUBLIC_EDEN_SUPABASE_URL`, `NEXT_PUBLIC_EDEN_SUPABASE_ANON_KEY`,
   `EDEN_SUPABASE_SERVICE_ROLE_KEY`, `EDEN_STRIPE_SECRET_KEY`,

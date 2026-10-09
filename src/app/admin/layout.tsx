@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut, ArrowLeft } from "lucide-react";
+import { ArrowDoorOut, ArrowLeft } from "reicon-react";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function AdminLayout({

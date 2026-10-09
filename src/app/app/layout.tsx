@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { LogOut, Settings } from "lucide-react";
+import { ArrowDoorOut, Gear } from "reicon-react";
 import { createClient } from "@/lib/supabase/server";
 import SidebarNav from "@/components/app/SidebarNav";
 import { BrandMark } from "@/components/BrandMark";
@@ -49,7 +49,7 @@ export default async function AppLayout({
             href="/app/parametres"
             className="mb-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider text-ink/70 transition-all hover:bg-brass/10 hover:text-brass"
           >
-            <Settings size={14} /> Paramètres
+            <Gear size={14} /> Paramètres
           </Link>
 
           <form action="/auth/signout" method="post">
@@ -57,7 +57,7 @@ export default async function AppLayout({
               type="submit"
               className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider text-brass transition-all hover:bg-brass/10"
             >
-              <LogOut size={14} /> Quitter la session
+              <ArrowDoorOut size={14} /> Quitter la session
             </button>
           </form>
         </div>
@@ -70,7 +70,7 @@ export default async function AppLayout({
           </Link>
           <form action="/auth/signout" method="post">
             <button type="submit" className="text-brass">
-              <LogOut size={18} />
+              <ArrowDoorOut size={18} />
             </button>
           </form>
         </header>

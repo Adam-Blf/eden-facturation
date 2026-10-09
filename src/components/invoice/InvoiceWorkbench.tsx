@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { Plus, Trash2, Save, Send, Loader2, Copy, Check } from "lucide-react";
+import { Plus, Trash2, Floppy2, Send, Loader, Copy, Check } from "reicon-react";
 import { toast } from "sonner";
 import {
   DEFAULT_INVOICE,
@@ -227,10 +227,10 @@ export default function InvoiceWorkbench({
 
         <div className="flex gap-4">
           <button onClick={onSave} disabled={pending} className="btn-secondary w-full">
-            {pending ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />} Enregistrer
+            {pending ? <Loader size={15} className="animate-spin" /> : <Floppy2 size={15} />} Enregistrer
           </button>
           <button onClick={onIssue} disabled={pending} className="btn-primary w-full">
-            {pending ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />} Valider & Lien
+            {pending ? <Loader size={15} className="animate-spin" /> : <Send size={15} />} Valider & Lien
           </button>
         </div>
       </motion.div>

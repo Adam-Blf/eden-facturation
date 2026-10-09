@@ -3,7 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { Upload, Trash2, Save, Loader2, Check } from "lucide-react";
+import { Upload, Trash2, Floppy2, Loader, Check } from "reicon-react";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { saveSettings } from "@/app/app/parametres/actions";
@@ -206,7 +206,7 @@ export default function BrandingForm({
                 disabled={uploading}
                 className="inline-flex items-center gap-2 rounded-md bg-paper/10 px-4 py-2 text-xs font-bold text-ink transition hover:bg-paper/20 disabled:opacity-60"
               >
-                {uploading ? <Loader2 size={14} className="animate-spin" /> : <Upload size={14} />}
+                {uploading ? <Loader size={14} className="animate-spin" /> : <Upload size={14} />}
                 Importer
               </button>
               {s.logoUrl && (
@@ -299,7 +299,7 @@ export default function BrandingForm({
             disabled={pending}
             className="btn-primary w-full md:w-auto"
           >
-            {pending ? <Loader2 size={16} className="animate-spin" /> : saved ? <Check size={16} /> : <Save size={16} />}
+            {pending ? <Loader size={16} className="animate-spin" /> : saved ? <Check size={16} /> : <Floppy2 size={16} />}
             {saved ? "Enregistré" : "Sauvegarder les informations"}
           </button>
         </div>

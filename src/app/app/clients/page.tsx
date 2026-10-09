@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Trash2, UserPlus, AlertTriangle } from "lucide-react";
+import { Trash2, UserAdd, AlertTriangle } from "reicon-react";
 import { createClient } from "@/lib/supabase/server";
 import { addClient, deleteClient } from "./actions";
 
@@ -46,7 +46,7 @@ export default async function ClientsPage({
             <input type="checkbox" name="particulier" defaultChecked className="accent-brass" /> Particulier
           </label>
           <button type="submit" className="btn-primary text-sm px-5 py-2">
-            <UserPlus size={15} /> Ajouter
+            <UserAdd size={15} /> Ajouter
           </button>
         </div>
       </form>
