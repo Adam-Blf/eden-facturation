@@ -12,7 +12,9 @@ const centralEnvFile =
 if (existsSync(centralEnvFile)) process.loadEnvFile(centralEnvFile);
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  experimental: {
+    optimizePackageImports: ["reicon-react"],
+  },
 };
 
 export default nextConfig;

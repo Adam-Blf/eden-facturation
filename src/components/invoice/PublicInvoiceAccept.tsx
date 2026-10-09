@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader } from "reicon-react";
 
 export default function PublicInvoiceAccept({
   token,
@@ -61,7 +61,7 @@ export default function PublicInvoiceAccept({
             disabled={state === "loading"}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-forest px-4 py-3 font-bold text-white transition hover:bg-moss disabled:opacity-60"
           >
-            {state === "loading" ? <Loader2 size={18} className="animate-spin" /> : null}
+            {state === "loading" ? <Loader size={18} className="animate-spin" /> : null}
             J’accepte cette facture
           </motion.button>
         )}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus, TrendingUp, Receipt, Landmark, Wallet } from "lucide-react";
+import { Plus, TrendUp, Receipt, Bank, Wallet } from "reicon-react";
 import { createClient } from "@/lib/supabase/server";
 import { settingsFromRow } from "@/lib/db";
 import { estimatedCotisations, netAfterCotisations, seuilStatus, SEUILS, isMicroEntreprise } from "@/lib/compta";
@@ -29,9 +29,9 @@ export default async function DashboardPage() {
   const micro = isMicroEntreprise(settings.forme);
 
   const cards = [
-    { label: `CA encaissé ${year}`, value: formatEUR(caEncaisse), icon: TrendingUp },
+    { label: `CA encaissé ${year}`, value: formatEUR(caEncaisse), icon: TrendUp },
     { label: "CA facturé", value: formatEUR(caFacture), icon: Receipt },
-    { label: "Cotisations URSSAF est.", value: formatEUR(cotis), icon: Landmark },
+    { label: "Cotisations URSSAF est.", value: formatEUR(cotis), icon: Bank },
     { label: "Net estimé", value: formatEUR(net), icon: Wallet },
   ];
 

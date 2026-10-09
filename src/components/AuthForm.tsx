@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, EyeOff, ArrowRight, Loader2, MailCheck } from "lucide-react";
+import { Eye, EyeSlash, ArrowRight, Loader, EnvelopeCheck } from "reicon-react";
 import { createClient } from "@/lib/supabase/client";
 
 interface AuthFormProps {
@@ -99,7 +99,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         className="flex flex-col items-center gap-5 py-4 text-center"
       >
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brass/15 text-brass">
-          <MailCheck size={26} strokeWidth={1.5} />
+          <EnvelopeCheck size={26} />
         </span>
         <div className="flex flex-col gap-2">
           <h2 className="font-display text-2xl font-bold text-ink">
@@ -230,9 +230,9 @@ export default function AuthForm({ mode }: AuthFormProps) {
               className="absolute right-3 top-1/2 -translate-y-1/2 text-mist transition hover:text-ink"
             >
               {showPassword ? (
-                <EyeOff size={16} strokeWidth={1.75} />
+                <EyeSlash size={16} />
               ) : (
-                <Eye size={16} strokeWidth={1.75} />
+                <Eye size={16} />
               )}
             </button>
           </div>
@@ -298,7 +298,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           className="btn-primary mt-4 w-full"
         >
           {loading ? (
-            <Loader2 size={18} className="animate-spin" />
+            <Loader size={18} className="animate-spin" />
           ) : (
             <>
               {mode === "login" ? "Se connecter" : "Créer mon compte"}

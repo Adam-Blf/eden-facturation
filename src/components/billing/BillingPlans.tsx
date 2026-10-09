@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Check, Loader2, Tag, Sparkles, ExternalLink } from "lucide-react";
+import { Check, Loader, Tag, Sparkles, SquareShare } from "reicon-react";
 import { toast } from "sonner";
 import { validatePromo, createCheckout, type PaidPlan } from "@/app/app/abonnement/actions";
 
@@ -179,7 +179,7 @@ export default function BillingPlans({
                     }`}
                   >
                     {pendingPlan === plan.key ? (
-                      <Loader2 size={15} className="animate-spin" />
+                      <Loader size={15} className="animate-spin" />
                     ) : (
                       <Sparkles size={15} />
                     )}
@@ -206,7 +206,7 @@ export default function BillingPlans({
             type="submit"
             className="inline-flex items-center gap-2 text-sm font-semibold text-brass hover:underline"
           >
-            <ExternalLink size={15} /> Gérer mon abonnement (factures, résiliation)
+            <SquareShare size={15} /> Gérer mon abonnement (factures, résiliation)
           </button>
         </form>
       )}

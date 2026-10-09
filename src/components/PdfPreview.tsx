@@ -1,7 +1,7 @@
 "use client";
 
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
-import { Download } from "lucide-react";
+import { Download } from "reicon-react";
 import { InvoiceDocument } from "@/lib/pdf/InvoiceDocument";
 import type { InvoiceDocumentData } from "@/lib/types";
 

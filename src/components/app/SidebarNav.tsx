@@ -3,20 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
+  Element,
   FileText,
   Users,
   Calculator,
-  Palette,
+  Palette2,
   CreditCard,
-} from "lucide-react";
+} from "reicon-react";
 
 const ITEMS = [
-  { href: "/app", label: "Tableau de bord", icon: LayoutDashboard },
+  { href: "/app", label: "Tableau de bord", icon: Element },
   { href: "/app/factures", label: "Factures", icon: FileText },
   { href: "/app/clients", label: "Clients", icon: Users },
   { href: "/app/compta", label: "Comptabilité", icon: Calculator },
-  { href: "/app/parametres", label: "Branding & infos", icon: Palette },
+  { href: "/app/parametres", label: "Branding & infos", icon: Palette2 },
   { href: "/app/abonnement", label: "Abonnement", icon: CreditCard },
 ];
 

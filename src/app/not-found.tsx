@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Home, ArrowUpRight } from "lucide-react";
+import { Home, ArrowUpRight } from "reicon-react";
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 

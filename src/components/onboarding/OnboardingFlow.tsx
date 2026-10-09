@@ -3,7 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Building2, Users, ArrowRight, Loader2, Upload, Check } from "lucide-react";
+import { Building, Users, ArrowRight, Loader, Upload, Check } from "reicon-react";
 import { createClient } from "@/lib/supabase/client";
 import { completeOnboarding, type ProfileType } from "@/app/bienvenue/actions";
 
@@ -11,14 +11,14 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 
 const CHOICES: {
   key: ProfileType;
-  icon: typeof Building2;
+  icon: typeof Building;
   title: string;
   desc: string;
   badge: string;
 }[] = [
   {
     key: "entreprise",
-    icon: Building2,
+    icon: Building,
     title: "Entreprise / Freelance",
     desc: "Auto-entrepreneur, EURL, SARL, SAS. Facturation pro, plans selon le nombre de clients.",
     badge: "Plans dès 9 € / mois",
@@ -177,7 +177,7 @@ export default function OnboardingFlow({ userId }: { userId: string }) {
               disabled={pending}
               className="inline-flex items-center gap-2 rounded-full bg-[#d8b172] px-6 py-3 text-sm font-bold text-[#010000] transition hover:bg-[#c39a52] disabled:opacity-60"
             >
-              {pending ? <Loader2 size={16} className="animate-spin" /> : <ArrowRight size={16} />}
+              {pending ? <Loader size={16} className="animate-spin" /> : <ArrowRight size={16} />}
               Continuer
             </button>
           </motion.div>

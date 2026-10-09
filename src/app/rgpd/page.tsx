@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "reicon-react";
 
 export const metadata: Metadata = {
   title: "Politique de Confidentialité (RGPD) | 404 Monkey",

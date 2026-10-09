@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus, FileText } from "lucide-react";
+import { Plus, FileText } from "reicon-react";
 import { createClient } from "@/lib/supabase/server";
 import { INVOICE_STATUS_LABELS, INVOICE_STATUS_COLORS } from "@/lib/db";
 import { formatEUR } from "@/lib/format";

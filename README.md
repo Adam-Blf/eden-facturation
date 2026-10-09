@@ -1,6 +1,6 @@
 # EDEN - Facturation & compta
 
-[![version](https://img.shields.io/badge/version-0.1.0-000091?style=flat-square)](https://github.com/Adam-Blf/eden-facturation/releases)
+[![version](https://img.shields.io/badge/version-0.2.0-000091?style=flat-square)](https://github.com/Adam-Blf/eden-facturation/releases)
 
 <!-- adam-badges:start -->
 [![commits](https://img.shields.io/github/commit-activity/t/Adam-Blf/eden-facturation?color=001329&label=commits&style=flat-square)](https://github.com/Adam-Blf/eden-facturation/commits)
@@ -39,7 +39,7 @@ tes cotisations URSSAF et tes seuils micro. Conforme aux mentions légales FR
 
 Next.js 16 (App Router, Turbopack) - TypeScript - Tailwind CSS v4 -
 framer-motion - `@react-pdf/renderer` - Supabase (Postgres + Auth + RLS) -
-Stripe - lucide-react.
+Stripe - Reicon (`reicon-react`).
 
 ## 🏗️ Architecture
 
