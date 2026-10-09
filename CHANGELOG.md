@@ -4,6 +4,20 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-09
+
+### Changed
+
+- Buttons and calls to action now say what the visitor gets ("Facturer gratuitement",
+  "Ouvrir mon espace de facturation", "Retrouver mes factures", "Débloquer plus de clients",
+  "Gérer 10 clients"). Full before/after table in `docs/boutons.md`.
+- Secondary landing button border raised from 1.9:1 to 3.4:1 against the page.
+- Hover colour of the "remove line" button now readable on the dark surface.
+
+### Added
+
+- Accessible names on the icon-only "copy link" and "remove line" buttons.
+
 ## [0.2.0] - 2026-10-08
 
 ### Changed

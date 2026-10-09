@@ -25,7 +25,7 @@ export default async function ClientsPage({
             <p className="text-mist">
               Ton plan ne permet pas d&apos;ajouter plus de clients.{" "}
               <Link href="/app/abonnement" className="font-semibold text-brass underline underline-offset-2">
-                Passe à un plan supérieur
+                Débloquer plus de clients
               </Link>{" "}
               pour en ajouter davantage.
             </p>

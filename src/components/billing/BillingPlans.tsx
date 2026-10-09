@@ -12,6 +12,7 @@ type Plan = {
   clients: string;
   features: string[];
   highlight?: boolean;
+  cta?: string;
 };
 
 const PLANS: Plan[] = [
@@ -28,6 +29,7 @@ const PLANS: Plan[] = [
     price: "9 €",
     clients: "Jusqu'à 10 clients",
     features: ["10 clients", "Charte personnalisée", "Acceptation client", "Suivi compta"],
+    cta: "Gérer 10 clients",
   },
   {
     key: "pro",
@@ -35,6 +37,7 @@ const PLANS: Plan[] = [
     price: "19 €",
     clients: "Jusqu'à 50 clients",
     features: ["50 clients", "Multi-statuts", "Exports comptables", "Support prioritaire"],
+    cta: "Gérer 50 clients",
     highlight: true,
   },
   {
@@ -43,6 +46,7 @@ const PLANS: Plan[] = [
     price: "39 €",
     clients: "Clients illimités",
     features: ["Clients illimités", "Marque blanche", "Accès API", "Accompagnement dédié"],
+    cta: "Gérer sans limite",
   },
 ];
 
@@ -183,14 +187,14 @@ export default function BillingPlans({
                     ) : (
                       <Sparkles size={15} />
                     )}
-                    {stripeEnabled ? "Choisir" : "Bientôt"}
+                    {stripeEnabled ? (plan.cta ?? plan.name) : "Bientôt disponible"}
                   </button>
                 ) : (
                   <button
                     disabled
                     className="w-full rounded-full border border-hair py-2.5 text-sm font-bold text-mist"
                   >
-                    Gratuit
+                    Plan gratuit
                   </button>
                 )}
               </div>

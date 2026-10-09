@@ -301,7 +301,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
             <Loader size={18} className="animate-spin" />
           ) : (
             <>
-              {mode === "login" ? "Se connecter" : "Créer mon compte"}
+              {mode === "login" ? "Retrouver mes factures" : "Ouvrir mon espace de facturation"}
               <ArrowRight
                 size={16}
                 className="transition-transform group-hover:translate-x-0.5"
@@ -320,7 +320,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               href="/signup"
               className="font-semibold text-brass hover:underline"
             >
-              S'inscrire
+              Facturer gratuitement
             </Link>
           </>
         ) : (
@@ -330,7 +330,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               href="/login"
               className="font-semibold text-brass hover:underline"
             >
-              Se connecter
+              Retrouver mes factures
             </Link>
           </>
         )}
